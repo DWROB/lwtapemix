@@ -1,0 +1,43 @@
+.yellow-button {
+  color: $black;
+  padding: 8px 24px;
+  border-radius: 11px;
+  font-weight: bold;
+  background: $yellow;
+  font-family: "Nunito";
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.yellow-button:hover {
+  background: #a18426;
+  color: $black;
+  transition: .5s;
+  padding: 8px 24px;
+  border-radius: 11px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+
+.gray-button {
+  color: $white;
+  padding: 8px 24px;
+  border-radius: 11px;
+  font-weight: bold;
+  background: $gray;
+  font-family: "Nunito";
+  text-decoration: none;
+  font-size: 18px;
+}
+
+.gray-button:hover {
+  background: rgb(113, 113, 113);
+  color: $white;
+  transition: .5s;
+  padding: 8px 24px;
+  border-radius: 11px;
+  font-weight: bold;
+  text-decoration: none;
+}

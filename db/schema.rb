@@ -10,9 +10,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_28_150047) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_28_154442) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "playlists", force: :cascade do |t|
+    t.string "name"
+    t.string "spotify_playlist_id"
+    t.bigint "user_id"
+    t.string "playlist_images"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_playlists_on_user_id"
+  end
+
+  create_table "songs", force: :cascade do |t|
+    t.bigint "playlist_id"
+    t.string "name"
+    t.string "image"
+    t.string "spotify_id"
+    t.string "artist"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["playlist_id"], name: "index_songs_on_playlist_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -22,8 +43,23 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_28_150047) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "name"
+    t.string "spotify_name"
+    t.string "client_secret"
+    t.string "client_id"
+    t.string "spotify_access_token"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  create_table "votes", force: :cascade do |t|
+    t.bigint "playlist_id"
+    t.bigint "song_id"
+    t.integer "votes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["playlist_id"], name: "index_votes_on_playlist_id"
+    t.index ["song_id"], name: "index_votes_on_song_id"
   end
 
 end

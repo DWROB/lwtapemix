@@ -40,3 +40,5 @@
 *.swp
 .DS_Store
 
+# ignore my prviate spotify key
+/config/initializers/spotify_setup.rb

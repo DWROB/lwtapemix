@@ -77,7 +77,3 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
 end
-
-# gems required to use the rspotify gem
-gem 'active_model_serializers'
-gem 'rspotify'

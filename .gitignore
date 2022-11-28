@@ -39,6 +39,3 @@
 # Ignore Mac and Linux file system files
 *.swp
 .DS_Store
-
-# ignore my prviate spotify key
-/config/initializers/spotify_setup.rb

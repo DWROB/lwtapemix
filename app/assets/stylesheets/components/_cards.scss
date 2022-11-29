@@ -71,6 +71,10 @@
   color: $yellow;
 }
 
+.dark-gray {
+  color: $dark-gray;
+ }
+ 
 .card-text-center {
 text-align: center;
 }
@@ -88,4 +92,5 @@ text-align: center;
   display: flex;
   flex-direction: column;
   margin-top: 5px;
+
 }

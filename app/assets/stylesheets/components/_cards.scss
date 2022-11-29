@@ -1,36 +1,36 @@
-.card {
+.card-img {
   background-size: cover;
   background-position: center;
   height: 150px;
+  width: 150px;
   border-radius: 1px;
   box-shadow: 0 0 10px rgba(0,0,0,0.2);
   display: flex;
   align-items: center;
   justify-content: space-around;
-  font-size: 22px;
   color: white;
   font-weight: bolder;
   text-shadow: 0 0 10px rgba(0,0,0,0.7);
 }
 
-.content {
+.card-box {
   display: flex;
+  max-width: 400px;
+  margin: auto;
 }
-.cards {
+.card-box-cards {
   flex-grow: 1;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   grid-gap: 16px;
-  padding: 16px;
+  padding: 12px;
   background-color: $dark-gray;
+  margin: 10px;
 }
 
 @media (min-width: 576px) {
   .cards {
     grid-template-columns: 1fr 1fr;
-  }
-  #map {
-    display: none;
   }
 }
 
@@ -70,4 +70,26 @@
 
 .yellow {
   color: $yellow;
+}
+
+.card-text-center {
+text-align: center;
+}
+
+.card-text-center-small {
+  font-size: 20px;
+  margin-top: 9px;
+}
+
+.p-card-text-center-small {
+  font-size: 12px;
+}
+
+
+
+
+.flex-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 5px;
 }

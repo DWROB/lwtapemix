@@ -1,0 +1,8 @@
+<ul>
+  <% @playlists.each do |playlist| %>
+    <li>
+      <%= playlist.name %>
+      <%= image_tag(playlist.playlist_images) %>
+    </li>
+  <% end %>
+</ul>

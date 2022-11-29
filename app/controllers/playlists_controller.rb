@@ -2,7 +2,7 @@ class PlaylistsController < ApplicationController
   before_action :set_playlist, only: %i[ show edit update destroy ]
 
   def index
-    @playlist = policy_scope(Playlist)
+    @playlists = get_user_playlists("31jsiardcnc6h6w3mdfp6ccghqcu")
   end
 
   def show
@@ -51,4 +51,19 @@ class PlaylistsController < ApplicationController
     params.require(:playlist).permit(:name)
   end
 
+  def get_user_playlists(user_spotify_id)
+    user = RSpotify::User.find(user_spotify_id)
+    user_playlists = user.playlists
+    tapeplaylist = []
+    user_playlists.each do |playlist|
+      tapeplaylist << Playlist.new(
+        name: playlist.name,
+        spotify_playlist_id: playlist.id,
+        playlist_images: playlist.images[0]["url"]
+      )
+      policy_scope(tapeplaylist.last)
+      tapeplaylist.last.save
+    end
+    return tapeplaylist
+  end
 end

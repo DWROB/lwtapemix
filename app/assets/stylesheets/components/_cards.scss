@@ -15,6 +15,8 @@
 
 .card-box {
   display: flex;
+  max-width: 400px;
+  margin: auto;
 }
 .card-box-cards {
   flex-grow: 1;
@@ -29,9 +31,6 @@
 @media (min-width: 576px) {
   .cards {
     grid-template-columns: 1fr 1fr;
-  }
-  #map {
-    display: none;
   }
 }
 

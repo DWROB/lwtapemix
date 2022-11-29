@@ -1,6 +1,6 @@
 .yellow-button {
   color: $black;
-  padding: 8px 24px;
+  padding: 20px 64px;
   border-radius: 11px;
   font-weight: bold;
   background: $yellow;
@@ -14,7 +14,7 @@
   background: #a18426;
   color: $black;
   transition: .5s;
-  padding: 8px 24px;
+  padding: 20px 64px;
   border-radius: 11px;
   font-weight: bold;
   text-decoration: none;
@@ -23,7 +23,7 @@
 
 .gray-button {
   color: $white;
-  padding: 8px 24px;
+  padding: 20px 64px;
   border-radius: 11px;
   font-weight: bold;
   background: $gray;
@@ -33,11 +33,44 @@
 }
 
 .gray-button:hover {
-  background: rgb(113, 113, 113);
+  background: rgb(126, 126, 126);
   color: $white;
   transition: .5s;
-  padding: 8px 24px;
+  padding: 20px 64px;
   border-radius: 11px;
   font-weight: bold;
   text-decoration: none;
+}
+
+
+.yellow-button-small {
+  color: $black;
+  padding: 10px 32px;
+  border-radius: 11px;
+  font-weight: bold;
+  background: $yellow;
+  font-family: "Nunito";
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.yellow-button-small:hover {
+  background: #a18426;
+  color: $black;
+  transition: .5s;
+  padding: 10px 32px;
+  border-radius: 11px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.register-button {
+  color: $yellow;
+  font-family: "Nunito";
+}
+
+.yellow-btn-link {
+  color: $yellow;
+  font-family: "Nunito";
 }

@@ -2,7 +2,7 @@ class PlaylistsController < ApplicationController
   before_action :set_playlist, only: %i[ show edit update destroy ]
 
   def index
-    @playlists = get_user_playlists("31jsiardcnc6h6w3mdfp6ccghqcu")
+    @playlists = get_user_playlists("rthillman1997")
   end
 
   def show

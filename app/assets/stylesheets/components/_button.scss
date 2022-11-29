@@ -20,7 +20,6 @@
   text-decoration: none;
 }
 
-
 .gray-button {
   color: $white;
   padding: 20px 64px;
@@ -41,7 +40,6 @@
   font-weight: bold;
   text-decoration: none;
 }
-
 
 .yellow-button-small {
   color: $black;
@@ -74,3 +72,27 @@
   color: $yellow;
   font-family: "Nunito";
 }
+
+.btn-flat {
+  color: $black;
+  padding: 10px 32px;
+  border-radius: 11px;
+  font-weight: bold;
+  background: $yellow;
+  font-family: "Nunito";
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.btn-flat:hover {
+  background: #a18426;
+  color: $black;
+  transition: .5s;
+  padding: 10px 32px;
+  border-radius: 11px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+

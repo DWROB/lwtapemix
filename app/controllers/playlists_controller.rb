@@ -2,7 +2,7 @@ class PlaylistsController < ApplicationController
   before_action :set_playlist, only: %i[ show edit update destroy ]
 
   def index
-    @playlist = Playlist.all
+    @playlist = policy_scope(Playlist)
   end
 
   def show

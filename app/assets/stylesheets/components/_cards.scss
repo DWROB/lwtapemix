@@ -18,6 +18,7 @@
   max-width: 400px;
   margin: auto;
 }
+
 .card-box-cards {
   flex-grow: 1;
   display: grid;
@@ -28,11 +29,6 @@
   margin: 10px;
 }
 
-@media (min-width: 576px) {
-  .cards {
-    grid-template-columns: 1fr 1fr;
-  }
-}
 
 .card-product {
   overflow: hidden;
@@ -88,4 +84,13 @@ text-align: center;
   display: flex;
   flex-direction: column;
   margin-top: 5px;
+}
+
+.album-container {
+  display: grid;
+}
+
+.row-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }

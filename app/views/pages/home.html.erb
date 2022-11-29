@@ -1,97 +1,21 @@
 
-<head>
-  <link rel="stylesheet" href="assets/stylesheets/home.scss">
-</head>
+<div class="flex-container">
+  <div class="flex-item-img" style="background-image: url('<%= image_path "home_picture.png" %>')"></div>
 
-<body>
-  <div class="homepage-container">
-    <div class="home-text-container">
-      <div class="app-name">
-        <h1> TapeMix </h1>
-      </div>
-      <div class="tagline">
-        <p> Let's make a tape </p>
-      </div>
-    </div>
-
-    <br>
-    <br>
-
-
-
-
-    <div class="buttons-container">
-      <a class="yellow-button-small" href="#">Sign up</a>
-      </div>
-      <br>
-      <br>
-      <div class="register-button">
-        <a href="#" class="yellow-btn-link" role="button"> Register to make your tape </a>
-      </div>
-      <br>
-
-    </div>
+  <div class="flex-item">
+    <h1> TapeMix </h1>
   </div>
 
-</body>
+  <div class="flex-item">
+    <p style="font-weight: 400;"> Let's make a tape </p>
+  </div>
 
-<h1>TapeMix#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+  <div class="flex-item" style="margin-top: 150px;">
+    <%= button_to "Sign In", new_user_session_path, :id => "open-contacts-dialog-btn",
+    :class => "yellow-button-small", :method => :get %>
+  </div>
 
-<br>
-<br>
-<a class="yellow-button" href="#">Start now</a>
-<br>
-<br>
-<br>
-<br>
-<div class="card-product">
-  <img src="https://play-lh.googleusercontent.com/j-MLXrudwclqIlOZxRe90kOGS744GY0spVZF2OsEnJeMMxqa6Qxu1SwLiCmjQp8gIA" />
-  <div class="card-product-infos">
-    <h2>Song name</h2>
-    <p>Artist</p>
+  <div class="flex-item">
+    <p class="yellow-btn-link" style="margin-top: 25px"><%= link_to "Register to make your tape!", new_user_registration_path, class:"yellow-btn-link" %></p>
   </div>
 </div>
-<br>
-<br>
-
-<a class="gray-button" href="#">Start now</a>
-<br>
-<br>
-<br>
-<i class="fa-solid fa-trash"></i>
-<br>
-<br>
-<i class="fa-regular fa-heart"></i>
-<br>
-<br>
-<i class="fa-sharp fa-solid fa-share-nodes"></i>
-<br>
-<br>
-<i class="fa-solid fa-chevron-left"></i>
-<br>
-<br>
-<i class="fa-solid fa-arrow-right"></i>
-<br>
-<br>
-
-<br>
- <div class="content">
-      <div class="cards">
-        <div class="card" style="background-image: url(https://play-lh.googleusercontent.com/j-MLXrudwclqIlOZxRe90kOGS744GY0spVZF2OsEnJeMMxqa6Qxu1SwLiCmjQp8gIA)">
-        </div>
-
-        <div class="card" style="background-image: url(https://play-lh.googleusercontent.com/j-MLXrudwclqIlOZxRe90kOGS744GY0spVZF2OsEnJeMMxqa6Qxu1SwLiCmjQp8gIA)">
-        </div>
-
-        <div class="card" style="background-image: url(https://play-lh.googleusercontent.com/j-MLXrudwclqIlOZxRe90kOGS744GY0spVZF2OsEnJeMMxqa6Qxu1SwLiCmjQp8gIA)">
-        </div>
-
-        <div class="card" style="background-image: url(https://play-lh.googleusercontent.com/j-MLXrudwclqIlOZxRe90kOGS744GY0spVZF2OsEnJeMMxqa6Qxu1SwLiCmjQp8gIA)">
-        </div>
-        <h2 class="yellow">Playlist name</h2>
-        <br>
-        <p class="yellow">By: User name</p>
-      </div>
-    </div>
-  </div>

@@ -1,4 +1,4 @@
-class PlaylistPolicy < ApplicationPolicy
+class SongPolicy < ApplicationPolicy
   class Scope < Scope
     # NOTE: Be explicit about which records you allow access to!
     def resolve
@@ -11,19 +11,19 @@ class PlaylistPolicy < ApplicationPolicy
   end
 
   def new?
-    true
+    false
   end
 
   def create?
-    true
+    false
   end
 
   def edit?
-    true
+    false
   end
 
   def update?
     #only the owner of playlist
-    record.user== user
+    record.user == user
   end
 end

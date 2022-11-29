@@ -69,8 +69,10 @@
 }
 
 .yellow-btn-link {
-  color: $yellow;
+
+  color: $yellow !important;
   font-family: "Nunito";
+  font-size: 15px;
 }
 
 .btn-flat {

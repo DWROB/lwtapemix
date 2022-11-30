@@ -3,20 +3,28 @@
 
 <h1 class="yellow" style="text-align:center;font-size:40px";">Untitled Playlist</h1>
 
-<div class="album-container">
-  <div class="row-grid">
-    <% @playlists.each do |playlist| %>
-    <div class="card-box">
-      <div class="card-box-cards">
-        <div class="flex-container">
-          <div class="card-img" style="background-image: url(https://play-lh.googleusercontent.com/j-MLXrudwclqIlOZxRe90kOGS744GY0spVZF2OsEnJeMMxqa6Qxu1SwLiCmjQp8gIA)">
-          <%= image_tag playlist.playlist_images, class: "card-img", style: "background-image" %>
+<div class="container">
+  <div class="album-container">
+    <div class="row">
+      <div class="col-6">
+        <% @playlists.each do |playlist| %>
+        <div class="card-box">
+          <div class="card-box-cards">
+            <div class="flex-container">
+              <div class="card-img" style="background-image: url(https://play-lh.googleusercontent.com/j-MLXrudwclqIlOZxRe90kOGS744GY0spVZF2OsEnJeMMxqa6Qxu1SwLiCmjQp8gIA)">
+              <%= image_tag playlist.playlist_images, class: "card-img", style: "background-image" %>
+              </div>
+                <h2 class="yellow card-text-center-small">Playlist:</h2>
+                <p class="yellow p-card-text-center-small">By: User Name</p>
+            </div>
           </div>
-            <h2 class="yellow card-text-center-small">Playlist:</h2>
-            <p class="yellow p-card-text-center-small">By: User Name</p>
+        <% end %>
         </div>
       </div>
-    <% end %>
     </div>
   </div>
 </div>
+
+
+
+

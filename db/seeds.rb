@@ -8,28 +8,29 @@
 
 puts "cleaning the db"
 Playlist.destroy_all
+User.destroy_all
 
 puts "making two users"
 
-User.create!(email: "dal@verydal.com", name: "daaaal", password: "111111")
-User.create!(email: "1@1.com", name: "user 2", password: "123456")
+user1 = User.create!(email: "dal@verydal.com", name: "daaaal", password: "111111")
+user2 = User.create!(email: "1@1.com", name: "user 2", password: "123456")
 
 puts "making the playlist first for user_id: 1"
 
 playlist_seed = Playlist.new(
   name: "My Playlist #2",
   spotify_playlist_id: "1PA2xhSfvVa6oBz8WOe6tf",
-  user_id: 1,
+  user_id: user1.id,
   playlist_images: "https://mosaic.scdn.co/300/ab67616d0000b27390497cd6cc6338bbe57fc953ab67616d0000b273d7de90b4628456f13fe629d2ab67616d0000b273d85c957794c2a5b8b11de5f9ab67616d0000b273edf91cd0c0b08afbcf20f6d1",
   owner: "dal"
 )
 
-playlist_seed.save
+playlist_seed.save!
 
 puts "playlist made.  creating songs..."
 
 Song.create!(
-  playlist_id: playlist_seed.id,
+  playlist_id: 2,
   name: "On the Luna",
   image: "https://i.scdn.co/image/ab67616d0000b27338fe495ad75bd55c146125b6",
   spotify_id: "0Sfj5fPqZzCq9o3f1NNphz",
@@ -151,7 +152,7 @@ puts "making the playlist first for user_id: 2"
 playlist_seed = Playlist.new(
   name: "Hip Hop",
   spotify_playlist_id: "5pqb7KOl2vblRTdNoByPYH",
-  user_id: 2,
+  user_id: user2.id,
   playlist_images: "https://mosaic.scdn.co/640/ab67616d0000b2730b3331c0bfce749049377d70ab67616d0000b27352f194d02c39909d1b284799ab67616d0000b2736ce90ec627a0198a8efd127fab67616d0000b273d552416cafb8792b442655b2",
   owner: "Ryan"
 )

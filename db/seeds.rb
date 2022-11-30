@@ -7,24 +7,24 @@
 #   Character.create(name: "Luke", movie: movies.first)
 
 puts "cleaning the db"
-Playlist.destroy_all
+User.destroy_all
 
 puts "making two users"
 
-User.create!(email: "dal@verydal.com", name: "daaaal", password: "111111")
-User.create!(email: "1@1.com", name: "user 2", password: "123456")
+user1 = User.create!(email: "dal@verydal.com", name: "daaaal", password: "111111")
+user2 = User.create!(email: "1@1.com", name: "user 2", password: "123456")
 
-puts "making the playlist first for user_id: 1"
+puts "making the playlist first for user_id: #{user1.id}"
 
 playlist_seed = Playlist.new(
   name: "My Playlist #2",
   spotify_playlist_id: "1PA2xhSfvVa6oBz8WOe6tf",
-  user_id: 1,
+  user_id: user1.id,
   playlist_images: "https://mosaic.scdn.co/300/ab67616d0000b27390497cd6cc6338bbe57fc953ab67616d0000b273d7de90b4628456f13fe629d2ab67616d0000b273d85c957794c2a5b8b11de5f9ab67616d0000b273edf91cd0c0b08afbcf20f6d1",
   owner: "dal"
 )
 
-playlist_seed.save
+playlist_seed.save!
 
 puts "playlist made.  creating songs..."
 
@@ -42,7 +42,6 @@ Song.create!(
   image: "https://i.scdn.co/image/ab67616d0000b273d6d43a45746154bf87fd682b",
   spotify_id: "0JsRZWdSquAQtgyJO8mhLA",
   artist: "In The Valley Below"
-
 )
 
 
@@ -52,7 +51,6 @@ Song.create!(
   image: "https://i.scdn.co/image/ab67616d0000b273f666b5a59205ac2ee08959e7",
   spotify_id: "5waH4K1bmTMlikre01uqKi",
   artist: "Future Islands"
-
 )
 
 Song.create!(
@@ -77,7 +75,6 @@ Song.create!(
   image: "https://i.scdn.co/image/ab67616d0000b2731764a4e742fe4c69e4d16316",
   spotify_id: "2o8pFe93xgZaQ4Hw7mSX9t",
   artist: "Empire of the Sun"
-
 )
 
 Song.create!(
@@ -86,7 +83,6 @@ Song.create!(
   image: "https://i.scdn.co/image/ab67616d0000b273b036f68e97ce9f5372bfb350",
   spotify_id: "78tgXRq9Q6tPNP9hKCpgwB",
   artist: "Foals"
-
 )
 
 Song.create!(
@@ -135,7 +131,6 @@ Song.create!(
   image: "https://i.scdn.co/image/ab67616d0000b2739759d6dfa2c19091814fccb3",
   spotify_id: "4vvnuJlgBeNVwq3TNmLMNX",
   artist: "Tiësto"
-
 )
 
 Song.create!(
@@ -146,21 +141,19 @@ Song.create!(
   artist: "Modest Mouse"
 )
 
-puts "making the playlist first for user_id: 2"
+puts "making the playlist first for user_id: #{user2.id}"
 
 playlist_seed = Playlist.new(
   name: "Hip Hop",
   spotify_playlist_id: "5pqb7KOl2vblRTdNoByPYH",
-  user_id: 2,
+  user_id: user2.id,
   playlist_images: "https://mosaic.scdn.co/640/ab67616d0000b2730b3331c0bfce749049377d70ab67616d0000b27352f194d02c39909d1b284799ab67616d0000b2736ce90ec627a0198a8efd127fab67616d0000b273d552416cafb8792b442655b2",
   owner: "Ryan"
 )
 
-playlist_seed.save
+playlist_seed.save!
 
 puts "playlist made.  creating songs..."
-
-
 
 Song.create!(
   playlist_id: playlist_seed.id,
@@ -176,9 +169,7 @@ Song.create!(
   image: "https://i.scdn.co/image/ab67616d0000b273d6d43a45746154bf87fd682b",
   spotify_id: "0JsRZWdSquAQtgyJO8mhLA",
   artist: "In The Valley Below"
-
 )
-
 
 Song.create!(
   playlist_id: playlist_seed.id,
@@ -186,7 +177,6 @@ Song.create!(
   image: "https://i.scdn.co/image/ab67616d0000b273f666b5a59205ac2ee08959e7",
   spotify_id: "5waH4K1bmTMlikre01uqKi",
   artist: "Future Islands"
-
 )
 
 Song.create!(
@@ -211,7 +201,6 @@ Song.create!(
   image: "https://i.scdn.co/image/ab67616d0000b2731764a4e742fe4c69e4d16316",
   spotify_id: "2o8pFe93xgZaQ4Hw7mSX9t",
   artist: "Empire of the Sun"
-
 )
 
 Song.create!(
@@ -220,7 +209,6 @@ Song.create!(
   image: "https://i.scdn.co/image/ab67616d0000b273b036f68e97ce9f5372bfb350",
   spotify_id: "78tgXRq9Q6tPNP9hKCpgwB",
   artist: "Foals"
-
 )
 
 Song.create!(
@@ -269,7 +257,6 @@ Song.create!(
   image: "https://i.scdn.co/image/ab67616d0000b2739759d6dfa2c19091814fccb3",
   spotify_id: "4vvnuJlgBeNVwq3TNmLMNX",
   artist: "Tiësto"
-
 )
 
 Song.create!(

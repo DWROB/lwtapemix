@@ -2,7 +2,9 @@ class PlaylistsController < ApplicationController
   before_action :set_playlist, only: %i[ show edit update destroy ]
 
   def index
-    @playlists = get_user_playlists("rthillman1997")
+    # get_user_playlists("rthillman1997")
+    # @playlists = policy_scope(Playlist.where(user: current_user))
+    @playlists = policy_scope(Playlist.all)
   end
 
   def show
@@ -27,7 +29,6 @@ class PlaylistsController < ApplicationController
     else
       render :new, status: :unprocessable_entity
     end
-
   end
 
   def edit
@@ -52,19 +53,31 @@ class PlaylistsController < ApplicationController
   end
 
   def get_user_playlists(user_spotify_id)
+    # find user on spotify
     user = RSpotify::User.find(user_spotify_id)
     user_playlists = user.playlists
-    tapeplaylist = []
+
     user_playlists.each do |playlist|
-      tapeplaylist << Playlist.new(
+      store_songs(playlist.tracks, playlist.id)
+      tapeplaylist = Playlist.new(
         name: playlist.name,
         spotify_playlist_id: playlist.id,
         playlist_images: playlist.images[0]["url"]
       )
-      policy_scope(tapeplaylist.last)
-      tapeplaylist.last.save
+      tapeplaylist.save
     end
-    return tapeplaylist
   end
 
+  def store_songs(tracks_array, playlist_id)
+    tracks_array.each do |track|
+      new_track = Song.new(
+        playlist_id: playlist_id,
+        name: track.name,
+        artist: track.artists[0].name,
+        image: track.album.images[0]["url"],
+        spotify_id: track.id
+      )
+      new_track.save
+    end
+  end
 end

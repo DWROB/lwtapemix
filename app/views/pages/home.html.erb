@@ -9,13 +9,16 @@
     <p style="font-weight: 400;"> Let's make a tape </p>
   </div>
 
-  <div class="flex-item" style="margin-top: 150px;">
-    <%= button_to "Sign In", new_user_session_path, :id => "open-contacts-dialog-btn",
-    :class => "yellow-button-small", :method => :get %>
-  </div>
+  <% if !user_signed_in? %>
+    <div class="flex-item" style="margin-top: 150px;">
+      <%= button_to "Sign In", new_user_session_path, :id => "open-contacts-dialog-btn",
+      :class => "yellow-button-small", :method => :get %>
+    </div>
+    <div class="flex-item">
+      <p class="yellow-btn-link" style="margin-top: 25px"><%= link_to "Register to make your tape!", new_user_registration_path, class:"yellow-btn-link" %></p>
+    </div>
+  <% end %>
 
-  <div class="flex-item">
-    <p class="yellow-btn-link" style="margin-top: 25px"><%= link_to "Register to make your tape!", new_user_registration_path, class:"yellow-btn-link" %></p>
-  </div>
+
 </div>
 

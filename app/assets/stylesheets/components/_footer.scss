@@ -1,28 +1,32 @@
 .footer-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: auto;
+  margin-top: 40px;
   height: 10vh;
-  margin: none;
 }
 
-.footer {
-  background: $black;
-  justify-content: space-between;
+.footer{
+  justify-content: center;
   align-items: center;
   padding: 0px 50px;
+}
+
+h4 {
   color: $yellow;
+  font-family: "Nunito";
+  font-weight: 100;
+  text-align: center;
+  font-size: 13px;
+  opacity: 0.25;
 }
 
 .footer-links {
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 .footer-links a {
   color: $yellow;
-  opacity: 0.15;
+  opacity: 0.25;
   text-decoration: none;
   font-size: 24px;
   padding: 0px 10px;

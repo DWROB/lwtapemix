@@ -58,16 +58,13 @@ class PlaylistsController < ApplicationController
 
   def show
     @playlist = Playlist.find(params[:id])
-    @songs_query = Song.where("playlist_id = #{@playlist.id}")   
-    authorize @playlist
-  end
-
-  def new
-    @playlist = Playlist.new
+    @songs_query = Song.where("playlist_id = #{@playlist.id}")
     authorize @playlist
   end
 
   def create
+    puts params
+    raise
     authorize @playlist
 
     @playlist = Playlist.new(playlist_params)

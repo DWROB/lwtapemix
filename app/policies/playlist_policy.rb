@@ -2,7 +2,7 @@ class PlaylistPolicy < ApplicationPolicy
   class Scope < Scope
     # NOTE: Be explicit about which records you allow access to!
     def resolve
-      scope
+      scope.all
     end
   end
 

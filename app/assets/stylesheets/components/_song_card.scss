@@ -10,11 +10,11 @@
 .back-img {
   position: absolute;
   top: 0;
-  left: 0;  
+  left: 0;
   bottom: 0;
   right: 0;
-  height: 100vw;
-  width: 100vw;
+  // height: 100vw;
+  // width: 100vw;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -30,7 +30,7 @@
 }
 
 .song-img {
-  margin: 30px;
+  margin: 30px auto;
   height: 60vw;
   width: 60vw;
   background-size: cover;
@@ -70,7 +70,7 @@ button {
 
 .fa-thumbs-down {
   color: red;
-  font-size: 50px;  
+  font-size: 50px;
   opacity: 0.5;
 }
 
@@ -122,4 +122,3 @@ h2 {
 .card-product .card-product-infos {
   padding: 16px;
 }
-

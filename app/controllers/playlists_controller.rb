@@ -129,17 +129,29 @@ class PlaylistsController < ApplicationController
   end
 
   def fetch_songs
-    @new_playlist
+    playlist_id = @new_playlist.spotify_playlist_id
+    headers = {
+      Authorization: "Bearer #{@user[0].spotify_access_token}",
+      "Content-Type": "application/json"
+    }
+    songs_response = RestClient.get("https://api.spotify.com/v1/playlists/#{playlist_id}/tracks", headers)
+    songs_params = JSON.parse(songs_response.body)
+    @songs_details = songs_params["items"]
+    store_songs
+  end
 
-    tracks_array.each do |track|
-      new_track = Song.new(
-        playlist_id: playlist_id,
-        name: track.name,
-        artist: track.artists[0].name,
-        image: track.album.images[0]["url"],
-        spotify_id: track.id
-      )
-      new_track.save
+  def store_songs
+    @songs_details.each do |song|
+      unless song["track"]["id"] == nil
+        Song.create(
+          playlist_id: @new_playlist.id,
+          name: song["track"]["name"],
+          artist: song["track"]["artists"][0]["name"],
+          image: song["track"]["album"]["images"][0]["url"],
+          spotify_id: song["track"]["id"]
+        )
+      end
     end
+
   end
 end

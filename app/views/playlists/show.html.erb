@@ -1,24 +1,18 @@
 <div class="flex-container">
-  <div class="flex-item yellow">
+  <div class= "back-img" style=" opacity: 0.08; background-image: url('<%= image_path @songs_query[0].image %>');">
+  </div>
+    <div class="flex-item yellow">
       <h1>TapeMix</h1>
-  </div>
-
-  <div class="song-img" style="background-image: url('<%= image_path "https://i.scdn.co/image/ab67616d0000b2738b32b139981e79f2ebe005eb" %>')">
-  </div>
-
-  <div class="song-text-container">
-    <p> x songs remaining... </p>
-    <div class="icons-container">
-      <button><i class="fa-solid fa-x"></i></button>
-      <button><i class="fa-regular fa-heart"></i></button>
     </div>
-    <h2> MGMT </h2>
-    <p class="album-song"><i class="fa-regular fa-album"></i> Oracular Spectacular - Time to Pretend </p>
-  </div>
-
-  <div>
-
-
-
+      
+    <div class="song-img" style="background-image: url('<%= image_path @songs_query[0].image %>')">
+    </div>
+      <p> x songs remaining... </p>
+    <div class="icons-container">
+      <button><i class="fa-regular fa-thumbs-down"></i></button>
+      <button><i class="fa-regular fa-thumbs-up"></i></button>
+    </div>
+      <h2> <%= @songs_query[0].artist %> </h2>
+      <p class="album-song"> <%= @songs_query[0].name %> </p>
 </div>
 

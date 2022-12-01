@@ -119,14 +119,16 @@ class PlaylistsController < ApplicationController
 
   def create_playlists
     @playlist_items.map do |item|
-      @new_playlist = Playlist.create!(
-        name: item["name"],
-        spotify_playlist_id: item["id"],
-        owner: item["owner"]["display_name"],
-        playlist_images: item["images"][0]["url"],
-        user_id: current_user.id
-      )
-      fetch_songs
+      unless item["images"].empty?
+        @new_playlist = Playlist.create!(
+          name: item["name"],
+          spotify_playlist_id: item["id"],
+          owner: item["owner"]["display_name"],
+          playlist_images: item["images"][0]["url"],
+          user_id: current_user.id
+        )
+        fetch_songs
+      end
     end
   end
 

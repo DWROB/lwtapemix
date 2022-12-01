@@ -4,8 +4,9 @@ Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   # Defines the root path route ("/")
   # root "articles#index"
-  resources :playlists
-  post '/authorize_spotify', to: 'playlists#authorize_spotify'
-  post '/access_key', to: 'playlists#access_key'
-  post '/permission_key', to: 'playlists#permission_key'
+  
+  resources :playlists do
+    post "upvote", to: "votes#upvote"
+    post "downvote", to: "votes#downvote"
+  end
 end

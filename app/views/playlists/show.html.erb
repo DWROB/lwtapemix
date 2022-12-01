@@ -1,18 +1,48 @@
 <div class="flex-container">
-  <div class= "back-img" style=" opacity: 0.09; background-image: url('<%= image_path @songs_query[0].image %>');">
-  </div>
-    <div class="flex-item yellow">
-      <h1>TapeMix</h1>
-    </div>
-      
-    <div class="song-img" style="background-image: url('<%= image_path @songs_query[0].image %>')">
-    </div>
-      <p> x songs remaining... </p>
-    <div class="icons-container">
-      <button><i class="fa-regular fa-thumbs-down"></i></button>
-      <button><i class="fa-regular fa-thumbs-up"></i></button>
-    </div>
-      <h2> <%= @songs_query[0].artist %> </h2>
-      <p class="album-song"> <%= @songs_query[0].name %> </p>
-</div>
+  <div id="carouselExampleControls" class="carousel slide" data-bs-interval="false">
+    <div class="carousel-inner">
+      <% @songs_query.each do |song| %>
+        <div class="carousel-item <%= "active" if @songs_query.first == song %>" id="song-<%= song.id %>" ,
+                           data-controller="votes" data-votes-songid-value="<%= song.id %>" data-votes-target="song">
+          <div class= "back-img" style=" opacity: 0.08; background-image: url('<%= image_path song.image %>');">
+          </div>
+          <div class="flex-item yellow">
+            <h1>TapeMix</h1>
+          </div>
+          <div class="song-img" style="background-image: url('<%= image_path song.image %>')">
+          </div>
 
+          <p> x songs remaining... </p>
+          <div class="icons-container">
+            <%= link_to playlist_downvote_path(@playlist, song_id: song.id),
+                        data: {
+                          turbo_method: :post,
+                          action: "click->votes#downvote"
+                        } do %>
+              <i class="fa-regular fa-thumbs-down"></i>
+            <% end %>
+            <%= link_to playlist_upvote_path(@playlist, song_id: song.id),
+                        data: {
+                          turbo_method: :post,
+                          action: "click->votes#upvote"
+                        } do %>
+              <i class="fa-regular fa-thumbs-up"></i>
+            <% end %>
+          </div>
+          <h2> <%= song.artist %> </h2>
+          <p class="album-song"> <%= song.name %> </p>
+        </div>
+      <% end %>
+    </div>
+
+    <button class="carousel-control-prev upvote-btn d-none" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next downvote-btn d-none" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+
+</div>

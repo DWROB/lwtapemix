@@ -1,8 +1,22 @@
 
 <a href="/"> <i class="fa-solid fa-chevron-left"></i></a>
 
-<h1 class="yellow" style="text-align:center;font-size:40px";">Untitled Playlist</h1>
+<h1 class="yellow" style="text-align:center;font-size:30px";">Name your Playlist</h1>
 
+<div class="centered">
+  <input id="userInput" style="width:250px"; >
+  <button class="yellow-button-small-playlist" onclick="myFunction()" > Submit </button>
+  <h1 id="message" style="font-size:50px"> </h1>
+
+    <script>
+      function myFunction() {
+        let userInput = document.querySelector("#userInput");
+        let message = document.querySelector("#message");
+
+        message.innerHTML = userInput.value;
+      }
+    </script>
+</div>
 
 <div class="container"></div>
 <div class="playlist-cards">

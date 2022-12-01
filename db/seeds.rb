@@ -34,7 +34,7 @@ playlist_seed.save!
 puts "playlist made.  creating songs..."
 
 Song.create!(
-  playlist_id: 2,
+  playlist_id: playlist_seed.id,
   name: "On the Luna",
   image: "https://i.scdn.co/image/ab67616d0000b27338fe495ad75bd55c146125b6",
   spotify_id: "0Sfj5fPqZzCq9o3f1NNphz",

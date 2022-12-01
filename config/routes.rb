@@ -5,5 +5,8 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
-  resources :playlists
+  resources :playlists do
+    post "upvote", to: "votes#upvote"
+    post "downvote", to: "votes#downvote"
+  end
 end

@@ -2,24 +2,28 @@
 <a href="/"> <i class="fa-solid fa-chevron-left"></i></a>
 
 <h1 class="yellow" style="text-align:center;font-size:30px";">Name your Playlist</h1>
+<div data-controller="playlist">
+  <div class="centered">
+    <%= form_with url: playlists_path,
+                  method: :post,
+                  data: {
+                    action: "submit->playlist#createTapeMix",
+                    playlist_target: "form"
+                  },
+                  class: "my-3" do |f| %>
+      <%= f.text_field :name,
+                        data: {
+                          playlist_target: "name"
+                        },
+                        style: "width:250px"%>
+      <%= f.text_field :playlistIds, class: "d-none", data: { playlist_target: "playlistIds" } %>
+      <%= f.submit "Create", class: "yellow-button-small-playlist" %>
+    <% end %>
+  </div>
 
-<div class="centered">
-  <input id="userInput" style="width:250px"; >
-  <button class="yellow-button-small-playlist" onclick="myFunction()" > Submit </button>
-  <h1 id="message" style="font-size:50px"> </h1>
-
-    <script>
-      function myFunction() {
-        let userInput = document.querySelector("#userInput");
-        let message = document.querySelector("#message");
-
-        message.innerHTML = userInput.value;
-      }
-    </script>
+  <div class="playlist-cards">
+    <%= render "shared/playlist-card" %>
+  </div>
 </div>
 
-<div class="container"></div>
-<div class="playlist-cards">
-  <%= render "shared/playlist-card" %>
-</div>
 <%= link_to "sync to your spotify", @authorize_spotify_link, a_target: "blank" %>

@@ -68,6 +68,8 @@ class PlaylistsController < ApplicationController
   end
 
   def create
+    puts params
+    raise
     authorize @playlist
 
     @playlist = Playlist.new(playlist_params)

@@ -10,7 +10,7 @@
   </div>
 
   <% if !user_signed_in? %>
-    <div class="flex-item" style="margin-top: 150px;">
+    <div class="flex-item">
       <%= button_to "Sign In", new_user_session_path, :id => "open-contacts-dialog-btn",
       :class => "yellow-button-small", :method => :get %>
     </div>

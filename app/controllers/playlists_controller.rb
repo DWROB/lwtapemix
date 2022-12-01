@@ -8,6 +8,8 @@ class PlaylistsController < ApplicationController
   end
 
   def show
+    @playlist = Playlist.find(params[:id])
+    @songs_query = Song.where("playlist_id = #{@playlist.id}")   
     authorize @playlist
   end
 

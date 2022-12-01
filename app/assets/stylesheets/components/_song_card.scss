@@ -2,7 +2,26 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  position: relative;
+  top: 0;
+  left: 0;
 }
+
+.back-img {
+  position: absolute;
+  top: 0;
+  left: 0;  
+  bottom: 0;
+  right: 0;
+  height: 100vw;
+  width: 100vw;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin-top: 60px;
+  margin-bottom: 25px;
+}
+
 
 
 .flex-item {
@@ -11,12 +30,13 @@
 }
 
 .song-img {
-  margin-top: 30px;
-  height: 90vw;
-  width: 90vw;
+  margin: 30px;
+  height: 60vw;
+  width: 60vw;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  opacity: 1
 }
 
 p {
@@ -37,24 +57,26 @@ button {
   border-color: transparent;
 }
 
-.fa-heart {
-  color: $yellow;
-  font-size: 30px;
+.fa-thumbs-up {
+  color: green;
+  font-size: 50px;
+  opacity: 0.5;
 }
 
-.fa-heart:hover {
-  opacity: 0.2;
+.fa-thumbs-up:hover {
   transition: 1s;
+  opacity: 1;
 }
 
-.fa-x {
-  color: $yellow;
-  font-size: 30px
+.fa-thumbs-down {
+  color: red;
+  font-size: 50px;  
+  opacity: 0.5;
 }
 
-.fa-x:hover {
-  opacity: 0.2;
+.fa-thumbs-down:hover {
   transition: 1s;
+  opacity: 1;
 }
 
 h2 {

@@ -9,3 +9,6 @@ application.register("hello", HelloController)
 
 import PlaylistController from "./playlist_controller"
 application.register("playlist", PlaylistController)
+
+import VotesController from "./votes_controller"
+application.register("votes", VotesController)

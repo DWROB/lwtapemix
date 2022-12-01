@@ -7,6 +7,7 @@
 #   Character.create(name: "Luke", movie: movies.first)
 
 puts "cleaning the db"
+Playlist.destroy_all
 User.destroy_all
 
 puts "making two users"
@@ -15,6 +16,7 @@ user1 = User.create!(email: "dal@verydal.com", name: "daaaal", password: "111111
 user2 = User.create!(email: "1@1.com", name: "user 2", password: "123456")
 user3 = User.create!(email: "ryan@gmail.com", name: "Ryan", password: "123456")
 user4 = User.create!(email: "rory@gmail.com", name: "Rory", password: "123456")
+
 
 
 puts "making the playlist first for user_id: #{user1.id}"

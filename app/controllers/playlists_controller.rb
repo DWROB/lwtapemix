@@ -11,7 +11,7 @@ class PlaylistsController < ApplicationController
       form = {
         grant_type: "authorization_code",
         code: params[:code],
-        redirect_uri: "http://lwtapemix.herokuapp.com/playlists"
+        redirect_uri: "http://localhost:3000/playlists/"
       }
       headers = {
         Authorization: 'Basic ' + Base64.strict_encode64(auth_code),
@@ -48,7 +48,7 @@ class PlaylistsController < ApplicationController
       query_params = {
         client_id: ENV['CLIENT_ID'],
         response_type: "code",
-        redirect_uri: "http://lwtapemix.herokuapp.com/playlists",
+        redirect_uri: "http://localhost:3000/playlists/",
         scope: "user-library-read ugc-image-upload playlist-read-private playlist-modify-private playlist-modify-public",
         show_dialog: true
       }
@@ -68,19 +68,20 @@ class PlaylistsController < ApplicationController
   end
 
   def create
-    puts params
-    raise
-    authorize @playlist
-
-    @playlist = Playlist.new(playlist_params)
-    @playlist.user = current_user
-
-    authorize @playlist
-
-    if @playlist.save
-      redirect_to @playlist, notice: "Your Playlist was successfully created"
+    skip_policy_scope
+    @new_tape = Playlist.new(
+      name: params["name"],
+      user_id: current_user.id,
+      owner: current_user.spotify_name,
+      playlist_images: 'home_picture.png'
+    )
+    if @new_tape.save!
+      @playlist_id_array = params["playlistIds"].split(",")
+      merge_playlists
+      skip_authorization
+      redirect_to url_from("http://localhost:3000/playlists/#{Playlist.last.id}")
     else
-      render :new, status: :unprocessable_entity
+      render :index, status: :unprocessable_entity
     end
   end
 
@@ -160,4 +161,27 @@ class PlaylistsController < ApplicationController
     end
 
   end
+
+  def merge_playlists
+    # convert value to int
+    @playlist_id_array.each do |playlist_id|
+      @id_find = playlist_id.to_i
+      set_songs
+    end
+  end
+
+  def set_songs
+    # @id_find
+    playlist_to_copy = Song.where("playlist_id = ?", @id_find)
+    playlist_to_copy.each do |song|
+      Song.create!(
+        playlist_id: Playlist.last.id,
+        name: song.name,
+        image: song.image,
+        spotify_id: song.spotify_id,
+        artist: song.artist
+      )
+    end
+  end
+
 end

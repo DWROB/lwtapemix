@@ -1,12 +1,12 @@
 <div class="card-box-cards">
   <% @playlists.each do |playlist| %>
-    <div class="card-box" data-action="click->playlist#addPlaylist" data-song-id="<%= playlist.id %>">
-      <div class="flex-container">
+    <div class="card-box" data-playlist-id="<%= playlist.id %>" data-action="click->playlist#addPlaylist">
+      <div class="flex-container" data-playlist-target="playlistcard">
         <div class="card-img" style="background-image: url(https://play-lh.googleusercontent.com/j-MLXrudwclqIlOZxRe90kOGS744GY0spVZF2OsEnJeMMxqa6Qxu1SwLiCmjQp8gIA)">
           <%= image_tag playlist.playlist_images, class: "card-img", style: "background-image" %>
         </div>
           <h2 class="yellow card-text-center-small"> <%= playlist.name %></h2>
-          <p class="yellow p-card-text-center-small"><%= playlist.owner.capitalize %></p>
+          <p class="yellow p-card-text-center-small"><%= current_user.spotify_name ? playlist.owner.spotify_name : "spotify not connected" %></p>
       </div>
     </div>
   <% end %>

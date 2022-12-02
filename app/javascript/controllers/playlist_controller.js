@@ -3,14 +3,26 @@ import { Controller } from "@hotwired/stimulus"
 // Connects to data-controller="playlist"
 export default class extends Controller {
 
-  static targets = ["name", "form", "playlistIds"]
+  static targets = ["name", "form", "playlistIds", "playlistcard"]
 
   connect() {
-    this.playlistIds = []
+    this.playlistIds = [];
   }
 
   addPlaylist(event) {
-    this.playlistIds.push(event.currentTarget.dataset.songId)
+    const playlistId = event.currentTarget.dataset.playlistId
+    const playlistIndex = this.playlistIds.indexOf(playlistId);
+    console.log(playlistIndex)
+
+    if (playlistIndex > -1) {
+      event.currentTarget.firstElementChild.classList.remove("yellowb")
+      this.playlistIds.splice(playlistIndex, 1)
+    } else {
+      event.currentTarget.firstElementChild.classList.add("yellowb")
+      this.playlistIds.push(playlistId)
+    }
+
+    console.log(this.playlistIds)
   }
 
   createTapeMix(event) {
@@ -29,7 +41,7 @@ export default class extends Controller {
       },
       body: new FormData(this.formTarget)
     })
-      .then(response => response.text())
-      .then(data => console.log(data))
+      .then(response => window.location.href = response.url)
+
   }
 }

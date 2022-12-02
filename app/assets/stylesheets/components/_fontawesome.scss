@@ -27,3 +27,21 @@ font-size: 40px;
   color: #ffffff;
   font-size: 40px;
 }
+
+
+.fa-spotify {
+  color: white;
+  background-color: #1cb954;
+  text-decoration: none;
+  padding: 10px;
+  border-radius: 50px;
+}
+
+.fa-spotify:hover {
+  color: white;
+  background-color: #1cb953cc;
+  text-decoration: none;
+  padding: 10px;
+  border-radius: 50px;
+  transition: .5s;
+}

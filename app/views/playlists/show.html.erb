@@ -1,7 +1,7 @@
 <div class="flex-container">
   <div id="carouselExampleControls" class="carousel slide" data-bs-interval="false">
     <div class="carousel-inner">
-      <% @songs_query.each do |song| %>
+      <% @songs_query.each_with_index do |song, index| %>
         <div class="carousel-item <%= "active" if @songs_query.first == song %>" id="song-<%= song.id %>" ,
                            data-controller="votes" data-votes-songid-value="<%= song.id %>" data-votes-target="song">
           <div class= "back-img" style=" opacity: 0.08; background-image: url('<%= image_path song.image %>');">
@@ -12,7 +12,7 @@
           <div class="song-img" style="background-image: url('<%= image_path song.image %>')">
           </div>
 
-          <p> x songs remaining... </p>
+          <p> <%= @songs_query.size - index %> songs remaining... </p>
           <div class="icons-container">
             <%= link_to playlist_downvote_path(@playlist, song_id: song.id),
                         data: {

@@ -6,7 +6,7 @@
           <%= image_tag playlist.playlist_images, class: "card-img", style: "background-image" %>
         </div>
           <h2 class="yellow card-text-center-small"> <%= playlist.name %></h2>
-          <p class="yellow p-card-text-center-small"><%= current_user.spotify_name ? playlist.owner.spotify_name : "spotify not connected" %></p>
+          <p class="yellow p-card-text-center-small"><%= current_user.spotify_name ? playlist.owner : "spotify not connected" %></p>
       </div>
     </div>
   <% end %>

@@ -6,8 +6,7 @@ class PlaylistsController < ApplicationController
       puts "LOGIN ERROR", params
     elsif params[:code]
       # delete the user's existing playlists to avoid doubling up
-
-
+      Playlist.where("user_id = #{current_user.id}").delete_all
       # auth code received - combine client_id and client_secret ...
       # and encode to request token
       auth_code = ENV['CLIENT_ID'] + ":" + ENV['CLIENT_SECRET']

@@ -1,5 +1,5 @@
 .navbar-lewagon {
-  justify-content: space-between;
+  display: flex;
   background: $yellow;
 }
 
@@ -10,6 +10,14 @@
 .navbar-lewagon .navbar-brand img {
   width: 40px;
 }
+
+.fa-user-check {
+  color: black;
+  font-size: 30px;
+  justify-content: center;
+}
+
+
 
 @media (max-width: 767px) {
   body {

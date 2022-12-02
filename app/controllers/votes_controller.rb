@@ -1,6 +1,13 @@
 class VotesController < ApplicationController
   skip_after_action :verify_authorized
 
+  def index
+    @votes = Vote.find(params[:playlist_id])
+    @songs = Song.find(params[:playlist_id])
+    authorize @songs
+    authorize @votes
+  end
+
   def upvote
     @playlist = Playlist.find(params[:playlist_id])
     @song = Song.find(params[:song_id])

@@ -4,10 +4,11 @@ Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   # Defines the root path route ("/")
   # root "articles#index"
-  
+
   resources :playlists do
     post "upvote", to: "votes#upvote"
     post "downvote", to: "votes#downvote"
     resources :votes, only: [:index]
   end
+
 end

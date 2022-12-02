@@ -5,13 +5,15 @@ class PlaylistsController < ApplicationController
     if params[:error]
       puts "LOGIN ERROR", params
     elsif params[:code]
+      # delete the user's existing playlists to avoid doubling up
+      Playlist.where("user_id = #{current_user.id}").delete_all
       # auth code received - combine client_id and client_secret ...
       # and encode to request token
       auth_code = ENV['CLIENT_ID'] + ":" + ENV['CLIENT_SECRET']
       form = {
         grant_type: "authorization_code",
         code: params[:code],
-        redirect_uri: "http://lwtapemix.herokuapp.com/playlists"
+        redirect_uri: "http://localhost:3000/playlists/"
       }
       headers = {
         Authorization: 'Basic ' + Base64.strict_encode64(auth_code),
@@ -43,12 +45,12 @@ class PlaylistsController < ApplicationController
     else
       # get_user_playlists("rthillman1997")
       # @playlists = policy_scope(Playlist.where(user: current_user))
-      @playlists = policy_scope(Playlist.all)
+      @playlists = policy_scope(Playlist.where("user_id = #{current_user.id}"))
       @user = User.find(current_user.id)
       query_params = {
         client_id: ENV['CLIENT_ID'],
         response_type: "code",
-        redirect_uri: "http://lwtapemix.herokuapp.com/playlists",
+        redirect_uri: "http://localhost:3000/playlists/",
         scope: "user-library-read ugc-image-upload playlist-read-private playlist-modify-private playlist-modify-public",
         show_dialog: true
       }
@@ -182,4 +184,27 @@ class PlaylistsController < ApplicationController
       )
     end
   end
+
+  def merge_playlists
+    # convert value to int
+    @playlist_id_array.each do |playlist_id|
+      @id_find = playlist_id.to_i
+      set_songs
+    end
+  end
+
+  def set_songs
+    # @id_find
+    playlist_to_copy = Song.where("playlist_id = ?", @id_find)
+    playlist_to_copy.each do |song|
+      Song.create!(
+        playlist_id: Playlist.last.id,
+        name: song.name,
+        image: song.image,
+        spotify_id: song.spotify_id,
+        artist: song.artist
+      )
+    end
+  end
+
 end

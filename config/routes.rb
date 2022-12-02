@@ -8,7 +8,6 @@ Rails.application.routes.draw do
   resources :playlists do
     post "upvote", to: "votes#upvote"
     post "downvote", to: "votes#downvote"
-
     resources :votes, only: [:index]
   end
 

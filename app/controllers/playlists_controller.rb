@@ -81,9 +81,7 @@ class PlaylistsController < ApplicationController
       @playlist_id_array = params["playlistIds"].split(",")
       merge_playlists
       skip_authorization
-      redirect_to root_path
-      raise
-
+      redirect_to playlist_path(@new_tape)
     else
       render :index, status: :unprocessable_entity
     end
@@ -163,7 +161,28 @@ class PlaylistsController < ApplicationController
         )
       end
     end
+  end
 
+  def merge_playlists
+    # convert value to int
+    @playlist_id_array.each do |playlist_id|
+      @id_find = playlist_id.to_i
+      set_songs
+    end
+  end
+
+  def set_songs
+    # @id_find
+    playlist_to_copy = Song.where("playlist_id = ?", @id_find)
+    playlist_to_copy.each do |song|
+      Song.create!(
+        playlist_id: Playlist.last.id,
+        name: song.name,
+        image: song.image,
+        spotify_id: song.spotify_id,
+        artist: song.artist
+      )
+    end
   end
 
   def merge_playlists

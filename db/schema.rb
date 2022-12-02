@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_30_162843) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_02_142251) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -74,8 +74,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_30_162843) do
     t.datetime "updated_at", null: false
     t.string "name"
     t.string "spotify_name"
-    t.string "client_secret"
-    t.string "client_id"
     t.string "spotify_access_token"
     t.integer "role", default: 0
     t.string "refresh_token"

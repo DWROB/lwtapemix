@@ -5,6 +5,9 @@ class PlaylistsController < ApplicationController
     if params[:error]
       puts "LOGIN ERROR", params
     elsif params[:code]
+      # delete the user's existing playlists to avoid doubling up
+
+
       # auth code received - combine client_id and client_secret ...
       # and encode to request token
       auth_code = ENV['CLIENT_ID'] + ":" + ENV['CLIENT_SECRET']
@@ -43,7 +46,7 @@ class PlaylistsController < ApplicationController
     else
       # get_user_playlists("rthillman1997")
       # @playlists = policy_scope(Playlist.where(user: current_user))
-      @playlists = policy_scope(Playlist.all)
+      @playlists = policy_scope(Playlist.where("user_id = #{current_user.id}"))
       @user = User.find(current_user.id)
       query_params = {
         client_id: ENV['CLIENT_ID'],
@@ -79,7 +82,9 @@ class PlaylistsController < ApplicationController
       @playlist_id_array = params["playlistIds"].split(",")
       merge_playlists
       skip_authorization
-      redirect_to url_from("http://localhost:3000/playlists/#{Playlist.last.id}")
+      redirect_to root_path
+      raise
+
     else
       render :index, status: :unprocessable_entity
     end

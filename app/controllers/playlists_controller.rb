@@ -23,7 +23,7 @@ class PlaylistsController < ApplicationController
       # post to spotify with all headers and form to receive token
       auth_response = RestClient.post('https://accounts.spotify.com/api/token', form, headers)
       auth_params = JSON.parse(auth_response.body)
-      
+
       # auth_params 200 then return the access token from auth_params
 
       header = {
@@ -94,6 +94,8 @@ class PlaylistsController < ApplicationController
   end
 
   def destroy
+    Playlist.delete(@playlist.id)
+    redirect_to playlists_path
   end
 
   private

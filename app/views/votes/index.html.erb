@@ -1,0 +1,18 @@
+<h1><%= @playlist.name %></h1>
+<h1>Share this link <%= "localhost:3000/playlists/#{@playlist.id} and ask your friends to vote." %></h1>
+<ol>
+  </h1>
+  
+  <h1>
+  <% @songs.each do |song| %>
+    <li>
+      <%= "song id: #{song.id}" %>
+      <%= song.artist %>
+    </li>
+  <% end %>
+  <% @votes.each do |vote| %>
+      </li>
+        <%= "vote song_id: #{vote.song_id}" %>
+      <li>
+  <% end %>
+</ol>

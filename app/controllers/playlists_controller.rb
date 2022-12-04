@@ -79,7 +79,7 @@ class PlaylistsController < ApplicationController
       @playlist_id_array = params["playlistIds"].split(",")
       merge_playlists
       skip_authorization
-      redirect_to playlist_path(@new_tape)
+      redirect_to playlist_votes_path(@new_tape)
     else
       render :index, status: :unprocessable_entity
     end

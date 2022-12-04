@@ -82,5 +82,3 @@ end
 gem 'active_model_serializers'
 gem 'rspotify'
 
-# Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
-gem "rack-cors", :require => 'rack/cors'

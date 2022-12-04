@@ -6,7 +6,7 @@ class PlaylistsController < ApplicationController
       puts "LOGIN ERROR", params
     elsif params[:code]
       # delete the user's existing playlists to avoid doubling up
-      Playlist.where("user_id = #{current_user.id}").delete_all
+      # Playlist.where("user_id = #{current_user.id}").delete_all
       # auth code received - combine client_id and client_secret ...
       # and encode to request token
       auth_code = ENV['CLIENT_ID'] + ":" + ENV['CLIENT_SECRET']
@@ -23,7 +23,7 @@ class PlaylistsController < ApplicationController
       # post to spotify with all headers and form to receive token
       auth_response = RestClient.post('https://accounts.spotify.com/api/token', form, headers)
       auth_params = JSON.parse(auth_response.body)
-
+      
       # auth_params 200 then return the access token from auth_params
 
       header = {
@@ -41,10 +41,8 @@ class PlaylistsController < ApplicationController
       )
       fetch_user_playlists
 
-      @playlists = policy_scope(Playlist.all)
+      @playlists = policy_scope(Playlist.where("user_id = #{current_user.id}"))
     else
-      # get_user_playlists("rthillman1997")
-      # @playlists = policy_scope(Playlist.where(user: current_user))
       @playlists = policy_scope(Playlist.where("user_id = #{current_user.id}"))
       @user = User.find(current_user.id)
       query_params = {

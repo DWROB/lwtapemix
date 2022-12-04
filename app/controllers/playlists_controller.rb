@@ -185,26 +185,4 @@ class PlaylistsController < ApplicationController
     end
   end
 
-  def merge_playlists
-    # convert value to int
-    @playlist_id_array.each do |playlist_id|
-      @id_find = playlist_id.to_i
-      set_songs
-    end
-  end
-
-  def set_songs
-    # @id_find
-    playlist_to_copy = Song.where("playlist_id = ?", @id_find)
-    playlist_to_copy.each do |song|
-      Song.create!(
-        playlist_id: Playlist.last.id,
-        name: song.name,
-        image: song.image,
-        spotify_id: song.spotify_id,
-        artist: song.artist
-      )
-    end
-  end
-
 end

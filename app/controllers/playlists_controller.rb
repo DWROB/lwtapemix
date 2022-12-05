@@ -204,7 +204,8 @@ class PlaylistsController < ApplicationController
       collaborative: false
     }
 
-    create_playlist_response = RestClient.post("https://api.spotify.com/v1/users/#{current_user.spotify_name}/playlists", header, body)
+    create_playlist_response = RestClient.post "https://api.spotify.com/v1/users/#{current_user.spotify_name}/playlists", body.to_json, header
+
     create_playlist_params = JSON.parse(create_playlist_response)
     raise
   end

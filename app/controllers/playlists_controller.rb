@@ -23,7 +23,7 @@ class PlaylistsController < ApplicationController
       # post to spotify with all headers and form to receive token
       auth_response = RestClient.post('https://accounts.spotify.com/api/token', form, headers)
       auth_params = JSON.parse(auth_response.body)
-      
+
       # auth_params 200 then return the access token from auth_params
 
       header = {
@@ -79,7 +79,7 @@ class PlaylistsController < ApplicationController
       @playlist_id_array = params["playlistIds"].split(",")
       merge_playlists
       skip_authorization
-      redirect_to playlist_path(@new_tape)
+      redirect_to playlist_votes_path(@new_tape)
     else
       render :index, status: :unprocessable_entity
     end
@@ -94,6 +94,8 @@ class PlaylistsController < ApplicationController
   end
 
   def destroy
+    Playlist.delete(@playlist.id)
+    redirect_to playlists_path
   end
 
   private

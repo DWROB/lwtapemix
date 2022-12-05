@@ -1,6 +1,7 @@
 class PlaylistsController < ApplicationController
-  before_action :set_playlist, only: %i[ show edit update destroy ]
+  before_action :set_playlist, only: %i[show edit update destroy]
   before_action :authenticate_user!, except: :show
+
   def index
     if params[:error]
       puts "LOGIN ERROR", params

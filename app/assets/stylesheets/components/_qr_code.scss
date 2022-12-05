@@ -5,3 +5,20 @@
   width: 20vh;
 }
 
+svg {
+  margin: 15px;
+}
+
+#button-qr {
+  color: $black;
+  padding: 10px 32px;
+  border-radius: 11px;
+  font-weight: bold;
+  background: $yellow;
+  font-family: "Nunito";
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 15px;
+  text-align: center;
+}

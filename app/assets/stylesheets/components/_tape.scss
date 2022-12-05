@@ -1,0 +1,147 @@
+
+.tape-box {
+  margin-right: auto;
+  margin-left: auto;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+section {
+	margin: 0 auto;
+	width: inherit;
+  margin-top: 20px;
+}
+
+.tape-boxcontent {
+  color: white;
+  text-align: center;
+}
+
+.cassette {
+	width: 350px;
+	background-color: rgb(18, 18, 18);
+	height: 220px;
+	display: inline-block;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	-o-border-radius: 10px;
+	border-radius: 10px;
+	position: relative;
+}
+
+.inner_1 {
+		display: inline-block;
+		height: 140px;
+		width: 315px;
+		background-color: $yellow;
+		margin: 20px 0;
+		border-radius: 5px;
+    opacity: .8;
+}
+
+.inner_2 {
+		display: inline-block;
+		height: 55px;
+		width: 215px;
+		margin-top: 45px;
+		background-color: #ABABAB;
+		border-radius: 100px;
+}
+
+.left_w {
+		position: relative;
+		right: 52px;
+		top: 1px;
+	}
+
+.right_w {
+		position: relative;
+		right: -52px;
+		top: 1px;
+}
+
+.fa {
+  	font-size: 3.5em;
+ }
+
+.fa-cog:before {
+		display: block;
+		width: 53px;
+		height: 53px;
+		background-color: black;
+		border-radius: 53px;
+}
+
+#trapezoid {
+	border-bottom: 40px solid #4b4b4b;
+	border-left: 10px solid transparent;
+	border-right: 10px solid transparent;
+	height: 0;
+	width: 200px;
+  position: relative;
+  left: 65px;
+}
+
+#trapezoid > div:nth-child(1) {
+	width: 13px;
+  height: 13px;
+  display: block;
+  background-color: #e6e6e6;
+  -webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	-o-border-radius: 15px;
+	border-radius: 15px;
+  position: absolute;
+  top: 21px;
+  left: 10px;
+}
+
+#trapezoid > div:nth-child(2) {
+	width: 13px;
+  height: 13px;
+  display: block;
+  background-color: #e6e6e6;
+  -webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	-o-border-radius: 15px;
+	border-radius: 15px;
+  position: absolute;
+  top: 21px;
+  left: 160px;
+}
+
+#trapezoid > div:nth-child(3) {
+	width: 10px;
+  height: 10px;
+  display: block;
+  background-color: #e6e6e6;
+  -webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	-o-border-radius: 15px;
+	border-radius: 15px;
+  position: absolute;
+  top: 15px;
+  left: 136px;
+}
+
+#trapezoid > div:nth-child(4) {
+	width: 10px;
+  height: 10px;
+  display: block;
+  background-color: #e6e6e6;
+  -webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	-o-border-radius: 15px;
+	border-radius: 15px;
+  position: absolute;
+  top: 15px;
+  left: 36px;
+}
+
+
+.playlist {
+  text-align: center;
+  font-size: 40px;
+  font-weight:400;
+  margin-top: 15px;
+}

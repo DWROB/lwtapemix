@@ -7,7 +7,7 @@ class VotesController < ApplicationController
     # /playlists/:playlist_id/votes (#index)
 
     @playlist = Playlist.find(params[:playlist_id])
-    @songs_votes = Song.includes(:votes).where(playlist: @playlist)
+    @songs_votes = Song.joins(:votes).where("votes.votes > 1").includes(:votes).where(playlist: @playlist)
     authorize @songs_votes
     skip_policy_scope
     authorize @playlist

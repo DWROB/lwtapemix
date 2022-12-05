@@ -1,28 +1,20 @@
+<h1 class="centered mt-3">Making Playlist</h1>
 
-<div class="block">
-<div class="tape">
-</div>
- <h2 class="yellow">LOADING.....</h2>
-</div>
+<%= render "shared/casset" %>
 
 
 <h1 class="playlist"><%= @playlist.name %></h1>
-<br>
-<h1>Share this link <%= "localhost:3000/playlists/#{@playlist.id} and ask your friends to vote." %></h1>
 
-<br>
-<br>
+<h2 class="centered">Share this link to vote <strong><%= "localhost:3000/playlists/#{@playlist.id}" %></strong></h2>
 
 <% @songs_votes.each_with_index do |song, i| %>
   <div class="card-product">
     <img src= "<%= song.image %>"/>
     <div class="card-product-infos">
-      <h2><%= "song id: #{song.id}" %></h2>
+      <h2><%= song.name %></h2>
       <p><%= song.artist %></p>
-      <p>
-      <% unless song.votes[0] == nil %>
-        <%= @songs_votes[i].votes[0].votes %>
-      <% end %>
+      <p>Votes :
+        <%= @songs_votes[i].votes[0]&.votes - 1 %>
       </p>
     </div>
   </div>

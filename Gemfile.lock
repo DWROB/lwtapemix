@@ -83,6 +83,7 @@ GEM
       public_suffix (>= 2.0.2, < 6.0)
     autoprefixer-rails (10.4.7.0)
       execjs (~> 2)
+    barby (0.6.8)
     bcrypt (3.1.18)
     bindex (0.8.1)
     bootsnap (1.15.0)
@@ -100,6 +101,7 @@ GEM
     case_transform (0.2)
       activesupport
     childprocess (4.1.0)
+    chunky_png (1.4.0)
     concurrent-ruby (1.1.10)
     crass (1.0.6)
     debug (1.6.3)
@@ -237,6 +239,10 @@ GEM
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
     rexml (3.2.5)
+    rqrcode (2.1.2)
+      chunky_png (~> 1.0)
+      rqrcode_core (~> 1.0)
+    rqrcode_core (1.2.0)
     rspotify (2.11.1)
       addressable (~> 2.8.0)
       omniauth-oauth2 (>= 1.6)
@@ -307,6 +313,7 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers
   autoprefixer-rails
+  barby
   bootsnap
   capybara
   debug
@@ -319,6 +326,7 @@ DEPENDENCIES
   puma (~> 5.0)
   pundit
   rails (~> 7.0.4)
+  rqrcode
   rspotify
   sassc-rails
   selenium-webdriver

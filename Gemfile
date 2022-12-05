@@ -82,3 +82,5 @@ end
 gem 'active_model_serializers'
 gem 'rspotify'
 
+# qr code gem
+gem 'rqrcode'

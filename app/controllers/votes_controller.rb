@@ -10,6 +10,13 @@ class VotesController < ApplicationController
     authorize @songs
     skip_policy_scope
     authorize @playlist
+    @qr_code = RQRCode::QRCode.new(playlist_url(@playlist))
+    @svg = @qr_code.as_svg(
+      offset: 0,
+      color: 'fff',
+      shape_rendering: 'crispEdges',
+      standalone: true
+    )
   end
 
   def upvote

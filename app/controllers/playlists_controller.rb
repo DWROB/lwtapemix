@@ -6,7 +6,7 @@ class PlaylistsController < ApplicationController
       puts "LOGIN ERROR", params
     elsif params[:code]
       # delete the user's existing playlists to avoid doubling up
-      Playlist.where("user_id = #{current_user.id}").delete_all
+      # Playlist.where("user_id = #{current_user.id}").delete_all
       # auth code received - combine client_id and client_secret ...
       # and encode to request token
       auth_code = ENV['CLIENT_ID'] + ":" + ENV['CLIENT_SECRET']
@@ -23,7 +23,7 @@ class PlaylistsController < ApplicationController
       # post to spotify with all headers and form to receive token
       auth_response = RestClient.post('https://accounts.spotify.com/api/token', form, headers)
       auth_params = JSON.parse(auth_response.body)
-
+      
       # auth_params 200 then return the access token from auth_params
 
       header = {
@@ -41,17 +41,15 @@ class PlaylistsController < ApplicationController
       )
       fetch_user_playlists
 
-      @playlists = policy_scope(Playlist.all)
+      @playlists = policy_scope(Playlist.where("user_id = #{current_user.id}"))
     else
-      # get_user_playlists("rthillman1997")
-      # @playlists = policy_scope(Playlist.where(user: current_user))
       @playlists = policy_scope(Playlist.where("user_id = #{current_user.id}"))
       @user = User.find(current_user.id)
       query_params = {
         client_id: ENV['CLIENT_ID'],
         response_type: "code",
         redirect_uri: "http://localhost:3000/playlists/",
-        scope: "user-library-read ugc-image-upload playlist-read-private playlist-modify-private playlist-modify-public",
+        scope: "user-library-read ugc-image-upload playlist-read-private playlist-modify-private playlist-modify-public user-read-private user-top-read user-follow-read",
         show_dialog: true
       }
       @authorize_spotify_link = "https://accounts.spotify.com/authorize?#{query_params.to_query}"
@@ -160,28 +158,6 @@ class PlaylistsController < ApplicationController
           spotify_id: song["track"]["id"]
         )
       end
-    end
-  end
-
-  def merge_playlists
-    # convert value to int
-    @playlist_id_array.each do |playlist_id|
-      @id_find = playlist_id.to_i
-      set_songs
-    end
-  end
-
-  def set_songs
-    # @id_find
-    playlist_to_copy = Song.where("playlist_id = ?", @id_find)
-    playlist_to_copy.each do |song|
-      Song.create!(
-        playlist_id: Playlist.last.id,
-        name: song.name,
-        image: song.image,
-        spotify_id: song.spotify_id,
-        artist: song.artist
-      )
     end
   end
 

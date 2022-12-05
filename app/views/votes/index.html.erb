@@ -13,15 +13,17 @@
 <br>
 <br>
 
-<% @songs.each_with_index do |song, i| %>
+<% @songs_votes.each_with_index do |song, i| %>
   <div class="card-product">
     <img src= "<%= song.image %>"/>
     <div class="card-product-infos">
       <h2><%= "song id: #{song.id}" %></h2>
       <p><%= song.artist %></p>
-      <% unless @votes[i].votes == nil %>
-        <p><%= @votes[i].votes  %></p>
+      <p>
+      <% unless song.votes[0] == nil %>
+        <%= @songs_votes[i].votes[0].votes %>
       <% end %>
+      </p>
     </div>
   </div>
 <% end %>

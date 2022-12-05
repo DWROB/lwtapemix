@@ -5,10 +5,10 @@ class VotesController < ApplicationController
   def index
     # playlist_votes_path
     # /playlists/:playlist_id/votes (#index)
+
     @playlist = Playlist.find(params[:playlist_id])
-    @votes = Vote.where("playlist_id = #{params[:playlist_id]}")
-    @songs = Song.where("playlist_id = #{params[:playlist_id]}")
-    authorize @songs
+    @songs_votes = Song.includes(:votes).where(playlist: @playlist)
+    authorize @songs_votes
     skip_policy_scope
     authorize @playlist
   end

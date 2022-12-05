@@ -23,7 +23,7 @@ class VotesController < ApplicationController
     else
       @song_votes.votes += 1
     end
-
+    skip_authorization
     @song_votes.save
   end
 
@@ -38,7 +38,7 @@ class VotesController < ApplicationController
     else
       @song_votes.votes -= 1
     end
-
+    skip_authorization
     @song_votes.save
   end
 end

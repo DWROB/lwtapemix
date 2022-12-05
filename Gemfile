@@ -81,3 +81,8 @@ end
 # gems required to use the rspotify gem
 gem 'active_model_serializers'
 gem 'rspotify'
+
+
+# qr code gem
+gem 'rqrcode'
+

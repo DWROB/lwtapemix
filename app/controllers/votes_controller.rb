@@ -1,5 +1,6 @@
 class VotesController < ApplicationController
   skip_after_action :verify_authorized
+  before_action :authenticate_user!, except: %i[upvote downvote]
 
   def index
     # playlist_votes_path

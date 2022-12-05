@@ -1,30 +1,31 @@
 
-<h1><%= @playlist.name %></h1>
+<%= @svg.html_safe %>
+<div class="block">
+<div class="tape">
+</div>
+ <h2 class="yellow">LOADING.....</h2>
+</div>
 
+
+<h1 class="playlist"><%= @playlist.name %></h1>
+<br>
 <h1>Share this link <%= "localhost:3000/playlists/#{@playlist.id} and ask your friends to vote." %></h1>
 
+<br>
+<br>
 
-<ol>
-  </h1>
-  
-  <h1>
-  <% @songs.each do |song| %>
-    <li>
-      <%= "song id: #{song.id}" %>
-      <%= song.artist %>
-    </li>
-  <% end %>
-  <% @votes.each do |vote| %>
-      </li>
-        <%= "vote song_id: #{vote.song_id}" %>
-      <li>
-  <% end %>
-</ol>
+<% @songs_votes.each_with_index do |song, i| %>
+  <div class="card-product">
+    <img src= "<%= song.image %>"/>
+    <div class="card-product-infos">
+      <h2><%= "song id: #{song.id}" %></h2>
+      <p><%= song.artist %></p>
+      <p>
+      <% unless song.votes[0] == nil %>
+        <%= @songs_votes[i].votes[0].votes %>
+      <% end %>
+      </p>
+    </div>
+  </div>
+<% end %>
 
-
-
-
-
-
-
-<%= @svg.html_safe %>

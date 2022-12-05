@@ -1,13 +1,14 @@
 class VotesController < ApplicationController
-  skip_after_action :verify_authorized
+  skip_after_action :verify_authorized, except: %i[upvote downvote]
+  before_action :authenticate_user!, except: %i[upvote downvote]
 
   def index
     # playlist_votes_path
     # /playlists/:playlist_id/votes (#index)
+
     @playlist = Playlist.find(params[:playlist_id])
-    @votes = Vote.where("playlist_id = #{params[:playlist_id]}")
-    @songs = Song.where("playlist_id = #{params[:playlist_id]}")
-    authorize @songs
+    @songs_votes = Song.includes(:votes).where(playlist: @playlist)
+    authorize @songs_votes
     skip_policy_scope
     authorize @playlist
     @qr_code = RQRCode::QRCode.new(playlist_url(@playlist))
@@ -29,7 +30,7 @@ class VotesController < ApplicationController
     else
       @song_votes.votes += 1
     end
-
+    skip_authorization
     @song_votes.save
   end
 
@@ -44,7 +45,7 @@ class VotesController < ApplicationController
     else
       @song_votes.votes -= 1
     end
-
+    skip_authorization
     @song_votes.save
   end
 end

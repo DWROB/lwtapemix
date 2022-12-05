@@ -83,7 +83,6 @@ GEM
       public_suffix (>= 2.0.2, < 6.0)
     autoprefixer-rails (10.4.7.0)
       execjs (~> 2)
-    barby (0.6.8)
     bcrypt (3.1.18)
     bindex (0.8.1)
     bootsnap (1.15.0)
@@ -313,7 +312,6 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers
   autoprefixer-rails
-  barby
   bootsnap
   capybara
   debug

@@ -1,5 +1,5 @@
 class PlaylistsController < ApplicationController
-  before_action :set_playlist, only: %i[show edit update destroy]
+  before_action :set_playlist, only: %i[show edit destroy]
   before_action :authenticate_user!, except: :show
 
   def index
@@ -90,8 +90,14 @@ class PlaylistsController < ApplicationController
     authorize @playlist
   end
 
-  def update
-    authorize @playlist
+  def send_to_spotify
+    @playlist = Playlist.find(params[:playlist_id])
+    @playlist.votes.each do |vote|
+      unless vote.votes.positive?
+        Song.delete(vote.song_id)
+      end
+    end
+    post_for_spotify
   end
 
   def destroy
@@ -184,6 +190,17 @@ class PlaylistsController < ApplicationController
         artist: song.artist
       )
     end
+  end
+
+  def post_to_spotify
+
+    headers = {
+      Authorization: "Bearer #{@user[0].spotify_access_token}",
+      "Content-Type": "application/json"
+    }
+    body = {
+
+    }
   end
 
 end

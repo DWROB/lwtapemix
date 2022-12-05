@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   devise_for :users
   root to: "pages#home"
+
+  get "/done", to: 'pages#done', as: :done
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   # Defines the root path route ("/")
   # root "articles#index"
@@ -10,5 +12,6 @@ Rails.application.routes.draw do
     post "downvote", to: "votes#downvote"
     resources :votes, only: [:index]
   end
-
 end
+
+

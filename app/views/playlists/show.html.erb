@@ -1,5 +1,4 @@
 <a href="/playlists"> <i class="fa-solid fa-chevron-left"></i></a>
-
 <div class="flex-container">
   <div id="carouselExampleControls" class="carousel slide" data-bs-interval="false">
     <div class="carousel-inner">
@@ -15,6 +14,8 @@
           </div>
 
           <p> <%= @songs_query.size - index %> songs remaining... </p>
+          <h2> <%= song.artist %> </h2>
+          <p class="album-song"> <%= song.name %> </p>
           <div class="icons-container">
             <%= link_to playlist_downvote_path(@playlist, song_id: song.id),
                         data: {
@@ -23,6 +24,9 @@
                         } do %>
               <i class="fa-regular fa-thumbs-down"></i>
             <% end %>
+            <div class="done-button">
+              <%= link_to "I'm Bored of Voting", done_path, :class=> "yellow-button-small" %> 
+            </div>
             <%= link_to playlist_upvote_path(@playlist, song_id: song.id),
                         data: {
                           turbo_method: :post,
@@ -31,8 +35,6 @@
               <i class="fa-regular fa-thumbs-up"></i>
             <% end %>
           </div>
-          <h2> <%= song.artist %> </h2>
-          <p class="album-song"> <%= song.name %> </p>
         </div>
       <% end %>
     </div>

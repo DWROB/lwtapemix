@@ -1,3 +1,8 @@
+.figma {
+  width: 60px;
+  height: 40px;
+}
+
 .navbar-lewagon {
   display: flex;
   background: $yellow;
@@ -7,14 +12,10 @@
   flex-grow: 0;
 }
 
-.navbar-lewagon .navbar-brand img {
-  width: 40px;
-}
-
 .fa-user-check {
   color: black;
   font-size: 30px;
-  justify-content: center;
+  text-align: center;
 }
 
 

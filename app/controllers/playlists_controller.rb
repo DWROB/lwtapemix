@@ -97,7 +97,7 @@ class PlaylistsController < ApplicationController
         Song.delete(vote.song_id)
       end
     end
-    post_for_spotify
+    post_to_spotify
   end
 
   def destroy
@@ -193,14 +193,20 @@ class PlaylistsController < ApplicationController
   end
 
   def post_to_spotify
-
-    headers = {
-      Authorization: "Bearer #{@user[0].spotify_access_token}",
-      "Content-Type": "application/json"
+    header = {
+      Authorization: "Bearer #{current_user.spotify_access_token}",
+      'Content-Type': "application/json"
     }
     body = {
-
+      name: "NewPLaylist",
+      description: "TapeMix made",
+      public: true,
+      collaborative: false
     }
+
+    create_playlist_response = RestClient.post("https://api.spotify.com/v1/users/#{current_user.spotify_name}/playlists", header, body)
+    create_playlist_params = JSON.parse(create_playlist_response)
+    raise
   end
 
 end

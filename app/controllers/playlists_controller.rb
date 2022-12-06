@@ -103,6 +103,7 @@ class PlaylistsController < ApplicationController
         Song.delete(vote.song_id)
       end
     end
+    @user = User.find(@playlist.user_id)
     post_to_spotify
   end
 
@@ -220,7 +221,7 @@ class PlaylistsController < ApplicationController
       collaborative: false
     }
 
-    create_playlist_response = RestClient.post "https://api.spotify.com/v1/users/#{current_user.spotify_name}/playlists", body.to_json, header
+    create_playlist_response = RestClient.post "https://api.spotify.com/v1/users/#{@user.spotify_name}/playlists", body.to_json, header
 
     create_playlist_params = JSON.parse(create_playlist_response)
 

@@ -27,3 +27,10 @@
       </div>
   </div>
 <% end %>
+
+
+<%= link_to "confirm the playlist", playlist_send_to_spotify_path(@playlist),
+            class: "yellow-button", data: {
+            turbo_method: :post,
+            action: "playlists#send_to_spotify"
+} %>

@@ -1,5 +1,5 @@
 class PlaylistsController < ApplicationController
-  before_action :set_playlist, only: %i[show edit update destroy]
+  before_action :set_playlist, only: %i[show edit destroy]
   before_action :authenticate_user!, except: :show
 
   def index
@@ -90,8 +90,14 @@ class PlaylistsController < ApplicationController
     authorize @playlist
   end
 
-  def update
-    authorize @playlist
+  def send_to_spotify
+    @playlist = Playlist.find(params[:playlist_id])
+    @playlist.votes.each do |vote|
+      unless vote.votes.positive?
+        Song.delete(vote.song_id)
+      end
+    end
+    post_to_spotify
   end
 
   def destroy
@@ -185,5 +191,45 @@ class PlaylistsController < ApplicationController
       )
     end
   end
+
+  def post_to_spotify
+    header = post_set_header
+    body = {
+      name: @playlist.name,
+      description: "TapeMix made",
+      public: true,
+      collaborative: false
+    }
+
+    create_playlist_response = RestClient.post "https://api.spotify.com/v1/users/#{current_user.spotify_name}/playlists", body.to_json, header
+
+    create_playlist_params = JSON.parse(create_playlist_response)
+
+    @playlist.spotify_playlist_id = create_playlist_params["id"]
+    @playlist.save!
+
+    header = post_set_header
+
+    body = prepare_tracks_for_api
+    RestClient.post "https://api.spotify.com/v1/playlists/#{@playlist.spotify_playlist_id}/tracks", body.to_json, header
+    # if add_items_to_playlist_response[:s]
+    skip_authorization
+    redirect_to playlists_path
+  end
+
+  def prepare_tracks_for_api
+    songs = Song.where(playlist_id: @playlist.id)
+    songs.map do |song|
+      "spotify:track:#{song.spotify_id}"
+    end
+  end
+
+  def post_set_header
+    {
+      Authorization: "Bearer #{current_user.spotify_access_token}",
+      'Content-Type': "application/json"
+    }
+  end
+
 
 end

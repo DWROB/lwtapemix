@@ -10,8 +10,7 @@ Rails.application.routes.draw do
   resources :playlists do
     post "upvote", to: "votes#upvote"
     post "downvote", to: "votes#downvote"
+    post "send_to_spotify", to: "playlists#send_to_spotify"
     resources :votes, only: [:index]
   end
 end
-
-

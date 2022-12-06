@@ -101,6 +101,7 @@ class PlaylistsController < ApplicationController
   end
 
   def destroy
+    playlists.find[params[:id]]
     Playlist.delete(@playlist.id)
     redirect_to playlists_path
   end

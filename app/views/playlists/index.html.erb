@@ -1,33 +1,33 @@
+<div class="newplaylist">
+  <a href="/"> <i class="fa-solid fa-chevron-left"></i></a>
+    <h1 class="yellow" style="text-align:center;font-size:30px";>Name your Playlist</h1>
+    <div data-controller="playlist">
+      <div class="centered">
+        <%= form_with url: playlists_path,
+                      method: :post,
+                      data: {
+                        action: "submit->playlist#createTapeMix",
+                        playlist_target: "form"
+                      },
+                      class: "my-3" do |f| %>
+          <%= f.text_field :name,
+                            data: {
+                              playlist_target: "name"
+                            },
+                            style: "width:250px"%>
+          <%= f.text_field :playlistIds, class: "d-none", data: { playlist_target: "playlistIds" } %>
+          <%= f.submit "Create", class: "yellow-button-small-playlist" %>
+        <% end %>
+      </div>
 
-<a href="/"> <i class="fa-solid fa-chevron-left"></i></a>
-
-<h1 class="yellow" style="text-align:center;font-size:30px";>Name your Playlist</h1>
-<div data-controller="playlist">
-  <div class="centered">
-    <%= form_with url: playlists_path,
-                  method: :post,
-                  data: {
-                    action: "submit->playlist#createTapeMix",
-                    playlist_target: "form"
-                  },
-                  class: "my-3" do |f| %>
-      <%= f.text_field :name,
-                        data: {
-                          playlist_target: "name"
-                        },
-                        style: "width:250px"%>
-      <%= f.text_field :playlistIds, class: "d-none", data: { playlist_target: "playlistIds" } %>
-      <%= f.submit "Create", class: "yellow-button-small-playlist" %>
-    <% end %>
-  </div>
-
-  <div class="playlist-cards">
-    <%= render "shared/playlist-card" %>
-  </div>
+      <div class="playlist-cards">
+        <%= render "shared/playlist-card" %>
+      </div>
+    </div>
 </div>
 
-<div class="flexbox">
-<i class="fa-brands fa-spotify">
-<%= link_to "Connect your spotify", @authorize_spotify_link, a_target: "blank", class: 'white-spotify' %>
-</i>
-</div>
+  <div class="flexbox">
+  <i class="fa-brands fa-spotify">
+  <%= link_to "Connect your spotify", @authorize_spotify_link, a_target: "blank", class: 'white-spotify' %>
+  </i>
+  </div>

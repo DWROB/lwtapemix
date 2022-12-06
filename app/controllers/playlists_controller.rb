@@ -1,6 +1,6 @@
 class PlaylistsController < ApplicationController
   before_action :set_playlist, only: %i[show edit destroy]
-  before_action :authenticate_user!, except: :show
+  before_action :authenticate_user!, except: %i[show welcome tape_closed]
 
   def index
     if params[:error]

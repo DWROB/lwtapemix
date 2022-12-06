@@ -3,6 +3,10 @@
   <head>
     <title>Lwtapemix</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="<%= meta_description %>">
+    
+    <link rel="icon" href="<%= image_path "figma_cassette.png"%>" type= "image/png" />
+
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -13,7 +17,9 @@
   <body>
     <%= render "shared/navbar" %>
     <%= render "shared/flashes" %>
-    <%= yield %>
+    <div class="page-container">
+      <%= yield %>
+    </div>
     <%= render "shared/footer" %>
   </body>
 </html>

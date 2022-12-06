@@ -27,9 +27,17 @@ p {
   margin-top: 30px;
   height: 150px;
   width: 350px;
+  margin-bottom: 10px;
 }
 .flex-item{
   display:flex;
   justify-content:center;
 }
 
+.page-container {
+  min-height: 80vh;
+}
+
+.go{
+  margin-top: 60px;
+}

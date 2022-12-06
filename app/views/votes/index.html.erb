@@ -12,10 +12,14 @@
 </div>
 
 <h1 class="playlist"><%= @playlist.name %></h1>
-
-<h2 class="centered">Share this link to vote <strong><%= "localhost:3000/playlists/#{@playlist.id}/welcome" %></strong></h2>
-
-<% @songs_votes.each_with_index do |song, i| %>
+<h2 class="centered">Share this link to vote <strong><%= "http://lwtapemix.herokuapp.com/playlists/#{@playlist.id}" %></strong></h2>
+<div class="centered" style="margin-bottom:30px; margin-top:30px;";>
+  <%= link_to "confirm the playlist", playlist_send_to_spotify_path(@playlist),
+            class: "yellow-button", data: {
+            turbo_method: :post,
+            action: "playlists#send_to_spotify"
+  } %>
+</div<% @songs_votes.each_with_index do |song, i| %>
   <div class="card-product">
     <img src= "<%= song.image %>"/>
       <div class="card-product-infos">

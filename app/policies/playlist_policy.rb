@@ -30,4 +30,10 @@ class PlaylistPolicy < ApplicationPolicy
     #only the owner of playlist
     record.user== user
   end
+
+  def destroy?
+    record.user== user
+
+
+  end
 end

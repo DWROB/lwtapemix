@@ -10,7 +10,7 @@ export default class extends Controller {
   }
 
   addPlaylist(event) {
-    const playlistId = event.currentTarget.dataset.playlistId
+    const playlistId = event.currentTarget.dataset.playlistId;
     const playlistIndex = this.playlistIds.indexOf(playlistId);
     console.log(playlistIndex)
 

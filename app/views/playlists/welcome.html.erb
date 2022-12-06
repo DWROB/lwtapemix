@@ -1,19 +1,18 @@
 <div class="welcome-flexbox">
   <h3>TapeMix</h3>
-  <p class="instructions"><%= current_user.spotify_name %> is making a tape</p>
-  
+  <p class="instructions"><%= @user.spotify_name %> is making a tape</p>
+
   <div class="user-image">
+
   </div>
   <br>
-  <h4> Their tape is called: <%= Playlist.find(params[:playlist_id]).name %></h4>
+  <h4> Their tape is called: <%= @playlist.name %></h4>
 
   </div>
   <div class= "flex-button">
-        <%= link_to "I Want to Start Voting", Playlist.find(params[:playlist_id]), class: "big-yellow-button"  %>
-  </div>    
+        <%= link_to "I Want to Start Voting", playlist_path(@playlist), class: "big-yellow-button"  %>
+  </div>
   <div class="flex-button">
     <a href="https://www.wikihow.com/Listen-to-Music"><button class="no-button"> No Thanks</button></a>
   </div>
 </div>
-
-

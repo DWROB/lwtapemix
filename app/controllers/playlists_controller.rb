@@ -120,6 +120,7 @@ class PlaylistsController < ApplicationController
 
   def welcome
     @playlist = Playlist.find(params[:playlist_id])
+    @user = User.find(@playlist.user_id)
     authorize @playlist
   end
 

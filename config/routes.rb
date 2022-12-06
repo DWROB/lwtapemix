@@ -11,6 +11,8 @@ Rails.application.routes.draw do
     post "upvote", to: "votes#upvote"
     post "downvote", to: "votes#downvote"
     resources :votes, only: [:index]
+    get "welcome", to: 'playlists#welcome', as: :welcome
+
   end
 end
 

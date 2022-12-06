@@ -59,8 +59,13 @@ class PlaylistsController < ApplicationController
 
   def show
     @playlist = Playlist.find(params[:id])
-    @songs_query = Song.where("playlist_id = #{@playlist.id}")
-    authorize @playlist
+    if @playlist.active
+      @songs_query = Song.where("playlist_id = #{@playlist.id}")
+      authorize @playlist
+    else
+      skip_authorization
+      render :tape_closed
+    end
   end
 
   def new
@@ -74,9 +79,10 @@ class PlaylistsController < ApplicationController
       name: params["name"],
       user_id: current_user.id,
       owner: current_user.spotify_name,
-      playlist_images: 'home_picture.png'
+      playlist_images: 'home_picture.png',
     )
     if @new_tape.save!
+      @new_tape.update(active: true)
       @playlist_id_array = params["playlistIds"].split(",")
       merge_playlists
       skip_authorization
@@ -104,6 +110,11 @@ class PlaylistsController < ApplicationController
     playlists.find[params[:id]]
     Playlist.delete(@playlist.id)
     redirect_to playlists_path
+  end
+
+  def tape_closed
+    skip_authorization
+    @playlist
   end
 
   def welcome
@@ -212,8 +223,8 @@ class PlaylistsController < ApplicationController
     create_playlist_params = JSON.parse(create_playlist_response)
 
     @playlist.spotify_playlist_id = create_playlist_params["id"]
-    @playlist.save!
-
+    @playlist.active = false
+    @playlist.save
     header = post_set_header
 
     body = prepare_tracks_for_api

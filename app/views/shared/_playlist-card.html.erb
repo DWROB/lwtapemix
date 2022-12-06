@@ -7,7 +7,8 @@
         </div>
           <h2 class="yellow card-text-center-small"> <%= playlist.name %></h2>
           <p class="yellow p-card-text-center-small"><%= current_user.spotify_name ? playlist.owner : "spotify not connected" %></p>
+          <%= link_to playlists_path(playlist),to: "playlists#destroy" %>
       </div>
     </div>
   <% end %>
-</div>
+</div> 

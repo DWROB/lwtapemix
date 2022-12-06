@@ -107,6 +107,7 @@ class PlaylistsController < ApplicationController
   end
 
   def destroy
+    playlists.find[params[:id]]
     Playlist.delete(@playlist.id)
     redirect_to playlists_path
   end
@@ -114,6 +115,11 @@ class PlaylistsController < ApplicationController
   def tape_closed
     skip_authorization
     @playlist
+  end
+
+  def welcome
+    @playlist = Playlist.find(params[:playlist_id])
+    authorize @playlist
   end
 
   private

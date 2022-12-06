@@ -22,6 +22,10 @@ class PlaylistPolicy < ApplicationPolicy
     true
   end
 
+  def welcome?
+    true
+  end
+
   def update?
     #only the owner of playlist
     record.user== user

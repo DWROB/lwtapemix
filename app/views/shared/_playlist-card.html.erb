@@ -7,7 +7,9 @@
         </div>
           <h2 class="yellow card-text-center-small"> <%= playlist.name %></h2>
           <p class="yellow p-card-text-center-small"><%= current_user.spotify_name ? playlist.owner : "spotify not connected" %></p>
-          <%= link_to playlists_path(playlist),to: "playlists#destroy" %>
+          <div class="destroy">
+            <%= link_to "",playlist_path(playlist), data: {turbo_method: :delete}, class: "fa-solid fa-trash"%>
+          </div>
       </div>
     </div>
   <% end %>

@@ -198,7 +198,7 @@ class PlaylistsController < ApplicationController
       'Content-Type': "application/json"
     }
     body = {
-      name: "NewPLaylist",
+      name: @playlist.name,
       description: "TapeMix made",
       public: true,
       collaborative: false
@@ -207,7 +207,27 @@ class PlaylistsController < ApplicationController
     create_playlist_response = RestClient.post "https://api.spotify.com/v1/users/#{current_user.spotify_name}/playlists", body.to_json, header
 
     create_playlist_params = JSON.parse(create_playlist_response)
-    raise
+
+    @playlist.spotify_playlist_id = create_playlist_params["id"]
+    @playlist.save!
+
+    header = {
+      Authorization: "Bearer #{current_user.spotify_access_token}",
+      'Content-Type': "application/json"
+    }
+
+    body = prepare_tracks_for_api
+    RestClient.post "https://api.spotify.com/v1/playlists/#{@playlist.spotify_playlist_id}/tracks", body.to_json, header
+    # if add_items_to_playlist_response[:s]
+    skip_authorization
+    redirect_to playlists_path
+  end
+
+  def prepare_tracks_for_api
+    songs = Song.where(playlist_id: @playlist.id)
+    songs.map do |song|
+      "spotify:track:#{song.spotify_id}"
+    end
   end
 
 end

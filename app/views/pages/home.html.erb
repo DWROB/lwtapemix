@@ -2,7 +2,7 @@
   <div class="flex-item-img" style="background-image: url('<%= image_path "home_picture.png" %>')"></div>
 
   <div class="flex-item">
-    <h1> TapeMix </h1>
+    <h1 class="tapemix"> TapeMix </h1>
   </div>
 
   <div class="flex-item">
@@ -18,6 +18,6 @@
       <p class="yellow-btn-link" style="margin-top: 25px"><%= link_to "Register to make your tape!", new_user_registration_path, class:"yellow-btn-link" %></p>
     </div>
   <% else %>
-    <h2>You are already signed-in!<%= button_to "Go to your Playlists", playlists_path, :class=> "yellow-button-small", :method => :get %> </h2>
+    <h2 class="go">You are already signed-in!<%= button_to "Go to your Playlists", playlists_path, :class=> "yellow-button-small", :method => :get %> </h2>
   <% end %>
 </div>

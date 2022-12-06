@@ -14,7 +14,7 @@ class PlaylistsController < ApplicationController
       form = {
         grant_type: "authorization_code",
         code: params[:code],
-        redirect_uri: "http://localhost:3000/playlists/"
+        redirect_uri: "http://lwtapemix.herokuapp.com/playlists/"
       }
       headers = {
         Authorization: 'Basic ' + Base64.strict_encode64(auth_code),
@@ -49,7 +49,7 @@ class PlaylistsController < ApplicationController
       query_params = {
         client_id: ENV['CLIENT_ID'],
         response_type: "code",
-        redirect_uri: "http://localhost:3000/playlists/",
+        redirect_uri: "http://lwtapemix.herokuapp.com/playlists/",
         scope: "user-library-read ugc-image-upload playlist-read-private playlist-modify-private playlist-modify-public user-read-private user-top-read user-follow-read",
         show_dialog: true
       }

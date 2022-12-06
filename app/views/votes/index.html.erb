@@ -13,7 +13,7 @@
 
 <h1 class="playlist"><%= @playlist.name %></h1>
 
-<h2 class="centered">Share this link to vote <strong><%= "localhost:3000/playlists/#{@playlist.id}" %></strong></h2>
+<h2 class="centered">Share this link to vote <strong><%= "localhost:3000/playlists/#{@playlist.id}/welcome" %></strong></h2>
 
 <% @songs_votes.each_with_index do |song, i| %>
   <div class="card-product">

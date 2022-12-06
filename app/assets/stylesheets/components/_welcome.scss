@@ -1,18 +1,37 @@
+.welcome-flexbox {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
 h3 {
   color: $yellow;
   text-align: center;
   margin-top: 20px;
+  font-size: 50px;
+  font-family: "Nunito";
 }
 
-.welcome-text {
-  display: flex;
+.instructions {
+  color: $yellow;
+  text-align: center;
+}
+
+.user-image {
+  border-radius: 50%;
+  border: 20px;
+  border-color: $yellow;
+  height: 20vh;
+  width: 20vh;
+  background-color: grey;
+  margin: 20px;
 }
 .no-button {
-  color: $black;
+  color: gray;
   padding: 20px 64px;
   border-radius: 11px;
   font-weight: bold;
-  background: grey;
+  background: darkgray;
   font-family: "Nunito";
   text-decoration: none;
   font-size: 30px;
@@ -20,9 +39,11 @@ h3 {
 }
 
 .no-button:hover {
-  color: darkgray;
+  color: $black;
+  background: gray;
   padding: 20px 64px;
   border-radius: 11px;
+  transition: 0.5s
 }
 .big-yellow-button {
   color: $black;
@@ -55,8 +76,4 @@ a {
   margin: 30px;
   display: flex;
   justify-content: center;
-}
-
-h3 {
-  font-size: 50px;
 }

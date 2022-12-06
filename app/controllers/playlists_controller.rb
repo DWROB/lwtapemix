@@ -193,10 +193,7 @@ class PlaylistsController < ApplicationController
   end
 
   def post_to_spotify
-    header = {
-      Authorization: "Bearer #{current_user.spotify_access_token}",
-      'Content-Type': "application/json"
-    }
+    header = post_set_header
     body = {
       name: @playlist.name,
       description: "TapeMix made",
@@ -211,10 +208,7 @@ class PlaylistsController < ApplicationController
     @playlist.spotify_playlist_id = create_playlist_params["id"]
     @playlist.save!
 
-    header = {
-      Authorization: "Bearer #{current_user.spotify_access_token}",
-      'Content-Type': "application/json"
-    }
+    header = post_set_header
 
     body = prepare_tracks_for_api
     RestClient.post "https://api.spotify.com/v1/playlists/#{@playlist.spotify_playlist_id}/tracks", body.to_json, header
@@ -229,5 +223,13 @@ class PlaylistsController < ApplicationController
       "spotify:track:#{song.spotify_id}"
     end
   end
+
+  def post_set_header
+    {
+      Authorization: "Bearer #{current_user.spotify_access_token}",
+      'Content-Type': "application/json"
+    }
+  end
+
 
 end

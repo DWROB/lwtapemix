@@ -11,7 +11,7 @@ class VotesController < ApplicationController
     authorize @songs_votes
     skip_policy_scope
     authorize @playlist
-    @qr_code = RQRCode::QRCode.new(playlist_url(@playlist))
+    @qr_code = RQRCode::QRCode.new("lwtapemix.herokuapp.com/playlists/#{@playlist.id}/welcome/")
     @svg = @qr_code.as_svg(
       offset: 0,
       color: 'fff',

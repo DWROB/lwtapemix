@@ -1,0 +1,5 @@
+meta_name: "Tapemix"
+meta_title: "Tapemix - Your playlist made simple"
+meta_description: "We create the playlist that best matches your events without giving you any hassles. Just connect your spotify account, choose your playlist, and send the generated link to your buddies"
+meta_image: "assets/images/figma_cassette.png" # should exist in `app/assets/images/`
+# twitter_account: "@your_twitter_account"   # required for Twitter Cards

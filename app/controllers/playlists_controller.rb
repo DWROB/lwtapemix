@@ -59,8 +59,13 @@ class PlaylistsController < ApplicationController
 
   def show
     @playlist = Playlist.find(params[:id])
-    @songs_query = Song.where("playlist_id = #{@playlist.id}")
-    authorize @playlist
+    if @playlist.active
+      @songs_query = Song.where("playlist_id = #{@playlist.id}")
+      authorize @playlist
+    else
+      skip_authorization
+      render :tape_closed
+    end
   end
 
   def new
@@ -104,6 +109,11 @@ class PlaylistsController < ApplicationController
   def destroy
     Playlist.delete(@playlist.id)
     redirect_to playlists_path
+  end
+
+  def tape_closed
+    skip_authorization
+    @playlist
   end
 
   private

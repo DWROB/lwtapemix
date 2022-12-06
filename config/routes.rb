@@ -12,5 +12,7 @@ Rails.application.routes.draw do
     post "downvote", to: "votes#downvote"
     post "send_to_spotify", to: "playlists#send_to_spotify"
     resources :votes, only: [:index]
+    get "welcome", to: 'playlists#welcome', as: :welcome
+
   end
 end

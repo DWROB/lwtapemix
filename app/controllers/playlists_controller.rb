@@ -106,6 +106,11 @@ class PlaylistsController < ApplicationController
     redirect_to playlists_path
   end
 
+  def welcome
+    @playlist = Playlist.find(params[:playlist_id])
+    authorize @playlist
+  end
+
   private
 
   def set_playlist

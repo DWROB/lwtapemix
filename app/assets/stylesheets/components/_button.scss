@@ -163,3 +163,23 @@
   content: "\f1bc";
   font-size: 25px;
 }
+
+.forward {
+  background-color: $yellow;
+  color: black;
+  margin: 10px;
+  border-radius: 15px;
+  padding: 6px;
+}
+
+.forward:hover {
+  background: #a18426;
+  color: $black;
+  transition: .5s;
+  text-decoration: none;
+}
+
+.space-between {
+  display: flex;
+  justify-content: space-between;
+}

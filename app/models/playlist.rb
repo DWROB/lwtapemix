@@ -3,5 +3,4 @@ class Playlist < ApplicationRecord
   has_many :songs, dependent: :destroy
   has_many :votes, dependent: :destroy
 
-  validates :name, presence: true, uniqueness: { scope: :user_id }
 end

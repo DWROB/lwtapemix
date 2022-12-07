@@ -7,14 +7,20 @@ class PlaylistsController < ApplicationController
       puts "LOGIN ERROR", params
     elsif params[:code]
       # delete the user's existing playlists to avoid doubling up
-      # Playlist.where("user_id = #{current_user.id}").delete_all
+
+      @user = User.find(current_user.id)
+      @user_playlists = Playlist.where(user_id: @user.id)
+      unless @user_playlists.empty?
+        clear_playlist_and_song_data
+      end
+
       # auth code received - combine client_id and client_secret ...
       # and encode to request token
       auth_code = ENV['CLIENT_ID'] + ":" + ENV['CLIENT_SECRET']
       form = {
         grant_type: "authorization_code",
         code: params[:code],
-        redirect_uri: "http://lwtapemix.herokuapp.com/playlists/"
+        redirect_uri: "http://localhost:3000/playlists/"
       }
       headers = {
         Authorization: 'Basic ' + Base64.strict_encode64(auth_code),
@@ -35,7 +41,8 @@ class PlaylistsController < ApplicationController
 
       # user_params have access_token, user_spotify_id and the refresh_token.
       # update the user.
-      @user = User.update(
+      @user.update(
+        name: user_params["display_name"],
         spotify_name: user_params["id"],
         spotify_access_token: auth_params["access_token"],
         refresh_token: auth_params["refresh_token"]
@@ -49,7 +56,7 @@ class PlaylistsController < ApplicationController
       query_params = {
         client_id: ENV['CLIENT_ID'],
         response_type: "code",
-        redirect_uri: "http://lwtapemix.herokuapp.com/playlists/",
+        redirect_uri: "http://localhost:3000/playlists/",
         scope: "user-library-read ugc-image-upload playlist-read-private playlist-modify-private playlist-modify-public user-read-private user-top-read user-follow-read",
         show_dialog: true
       }
@@ -135,11 +142,15 @@ class PlaylistsController < ApplicationController
     params.require(:playlist).permit(:name)
   end
 
+  def clear_playlist_and_song_data
+    @user_playlists.destroy_all
+  end
+
   def fetch_user_playlists
     # https://developer.spotify.com/documentation/web-api/reference/#/operations/get-a-list-of-current-users-playlists
     # find user on spotify
     headers = {
-      Authorization: "Bearer #{@user[0].spotify_access_token}",
+      Authorization: "Bearer #{@user.spotify_access_token}",
       "Content-Type": "application/json"
     }
 
@@ -167,7 +178,7 @@ class PlaylistsController < ApplicationController
   def fetch_songs
     playlist_id = @new_playlist.spotify_playlist_id
     headers = {
-      Authorization: "Bearer #{@user[0].spotify_access_token}",
+      Authorization: "Bearer #{@user.spotify_access_token}",
       "Content-Type": "application/json"
     }
     songs_response = RestClient.get("https://api.spotify.com/v1/playlists/#{playlist_id}/tracks", headers)

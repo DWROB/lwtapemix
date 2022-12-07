@@ -3,13 +3,12 @@ class PlaylistsController < ApplicationController
   before_action :authenticate_user!, except: %i[show welcome tape_closed]
 
   def index
+    @user = User.find(current_user.id)
     if params[:error]
       puts "LOGIN ERROR", params
     elsif params[:code]
 
       # delete the user's existing playlists to avoid doubling up
-
-      @user = User.find(current_user.id)
       unless @user.auth_key == params[:code]
         @user.auth_key = params[:code]
         @user_playlists = Playlist.where(user_id: @user.id)
@@ -56,8 +55,18 @@ class PlaylistsController < ApplicationController
       @user.auth_key = params[:code]
 
       @playlists = policy_scope(Playlist.where("user_id = #{@user.id}"))
+
+      query_params = {
+        client_id: ENV['CLIENT_ID'],
+        response_type: "code",
+        redirect_uri: "http://localhost:3000/playlists/",
+        scope: "user-library-read ugc-image-upload playlist-read-private playlist-modify-private playlist-modify-public user-read-private user-top-read user-follow-read",
+        show_dialog: true
+      }
+
+      @authorize_spotify_link = "https://accounts.spotify.com/authorize?#{query_params.to_query}"
     else
-      @playlists = policy_scope(Playlist.where("user_id = #{current_user.id}"))
+      @playlists = policy_scope(Playlist.where("user_id = #{@user.id}"))
       @user = User.find(current_user.id)
       query_params = {
         client_id: ENV['CLIENT_ID'],

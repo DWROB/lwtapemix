@@ -1,6 +1,6 @@
 <div class="welcome-flexbox">
   <h3>TapeMix</h3>
-  <p class="instructions"><%= @user.spotify_name %> is making a tape</p>
+  <p class="instructions"><%= @user.name.capitalize %> is making a tape</p>
 
   <div class="user-image">
 
@@ -10,7 +10,7 @@
 
   </div>
   <div class= "flex-button">
-        <%= link_to "I Want to Start Voting", playlist_path(@playlist), class: "big-yellow-button"  %>
+        <%= link_to "Start Voting", playlist_path(@playlist), class: "big-yellow-button"  %>
   </div>
   <div class="flex-button">
     <a href="https://www.wikihow.com/Listen-to-Music"><button class="no-button"> No Thanks</button></a>

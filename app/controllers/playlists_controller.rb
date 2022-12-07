@@ -14,7 +14,7 @@ class PlaylistsController < ApplicationController
       form = {
         grant_type: "authorization_code",
         code: params[:code],
-        redirect_uri: "http://localhost:3000/playlists/"
+        redirect_uri: "http://lwtapemix.herokuapp.com/playlists/"
       }
       headers = {
         Authorization: 'Basic ' + Base64.strict_encode64(auth_code),
@@ -49,7 +49,7 @@ class PlaylistsController < ApplicationController
       query_params = {
         client_id: ENV['CLIENT_ID'],
         response_type: "code",
-        redirect_uri: "http://localhost:3000/playlists/",
+        redirect_uri: "http://lwtapemix.herokuapp.com/playlists/",
         scope: "user-library-read ugc-image-upload playlist-read-private playlist-modify-private playlist-modify-public user-read-private user-top-read user-follow-read",
         show_dialog: true
       }
@@ -103,6 +103,7 @@ class PlaylistsController < ApplicationController
         Song.delete(vote.song_id)
       end
     end
+    @user = User.find(@playlist.user_id)
     post_to_spotify
   end
 
@@ -120,6 +121,7 @@ class PlaylistsController < ApplicationController
 
   def welcome
     @playlist = Playlist.find(params[:playlist_id])
+    @user = User.find(@playlist.user_id)
     authorize @playlist
   end
 
@@ -219,7 +221,7 @@ class PlaylistsController < ApplicationController
       collaborative: false
     }
 
-    create_playlist_response = RestClient.post "https://api.spotify.com/v1/users/#{current_user.spotify_name}/playlists", body.to_json, header
+    create_playlist_response = RestClient.post "https://api.spotify.com/v1/users/#{@user.spotify_name}/playlists", body.to_json, header
 
     create_playlist_params = JSON.parse(create_playlist_response)
 

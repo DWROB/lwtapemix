@@ -258,7 +258,8 @@ class PlaylistsController < ApplicationController
 
     body = prepare_tracks_for_api
     RestClient.post "https://api.spotify.com/v1/playlists/#{@playlist.spotify_playlist_id}/tracks", body.to_json, header
-    # if add_items_to_playlist_response[:s]
+
+    # RestClient.post url, body.to_json, header
     skip_authorization
     redirect_to playlists_path
   end
@@ -272,10 +273,9 @@ class PlaylistsController < ApplicationController
 
   def post_set_header
     {
-      Authorization: "Bearer #{current_user.spotify_access_token}",
-      'Content-Type': "application/json"
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: "Bearer #{current_user.spotify_access_token}"
     }
   end
-
-
 end

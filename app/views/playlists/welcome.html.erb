@@ -1,18 +1,17 @@
 <div class="welcome-flexbox">
   <h3>TapeMix</h3>
-  <p class="instructions"><%= @user.spotify_name %> is making a tape</p>
+  <p class="instructions"><%= @user.name.capitalize %> is making a tape</p>
 
   <div class="user-image">
-
   </div>
   <br>
-  <h4> Their tape is called: <%= @playlist.name %></h4>
+  <h4 style=" font-size:25px; opacity: 1;"> Their tape is called: <%= @playlist.name %></h4>
+
+  <div class= "flex-button">
+    <%= link_to "I Want to Start Voting", playlist_path(@playlist), class: "yellow-button-small"  %>
 
   </div>
-  <div class= "flex-button">
-        <%= link_to "I Want to Start Voting", playlist_path(@playlist), class: "big-yellow-button"  %>
-  </div>
   <div class="flex-button">
-    <a href="https://www.wikihow.com/Listen-to-Music"><button class="no-button"> No Thanks</button></a>
+    <a href="https://www.wikihow.com/Listen-to-Music"><button class="yellow-button-small" style="margin-top: 10px"> No Thanks</button></a>
   </div>
 </div>

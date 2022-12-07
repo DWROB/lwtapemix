@@ -1,5 +1,5 @@
 <div>
-<h1 class="centered mt-3">Making Playlist</h1>
+<h1 class="centered mt-3">Making Your Tape</h1>
 
 <%= render "shared/casset" %>
 
@@ -16,15 +16,16 @@
 <h1 class="playlist"><%= @playlist.name %></h1>
 <div class="text-center">
   <h2>Share this link to vote</h2>
-  <input type="text" value="<%= playlist_url(@playlist) %>" class="mx-3" style="width: 90%">
+  <p style="width: 90%; color: #FCCF35; margin:auto; text-decoration: underline;"><%=("#{playlist_url(@playlist)}/welcome")%></p>
 </div>
 <div class="centered" style="margin-bottom:30px; margin-top:30px;";>
-  <%= link_to "confirm the playlist", playlist_send_to_spotify_path(@playlist),
+  <%= link_to "Confirm Your Tape", playlist_send_to_spotify_path(@playlist),
             class: "yellow-button", data: {
             turbo_method: :post,
             action: "playlists#send_to_spotify"
   } %>
-</div<% @songs_votes.each_with_index do |song, i| %>
+</div>
+<% @songs_votes.each_with_index do |song, i| %>
   <div class="card-product">
     <img src= "<%= song.image %>"/>
       <div class="card-product-infos">

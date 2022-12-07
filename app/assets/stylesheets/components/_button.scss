@@ -111,6 +111,22 @@
   font-weight: bold;
 }
 
+.done-voting-button {
+  background: $yellow;
+  opacity: 0.6;
+  font-size: 14px;
+  padding: 8px 21px;
+  border-radius: 6px;
+  color: $black;
+  font-family: "Nunito";
+}
+
+.don-voting-button:hover {
+  background: #a18426;
+  color: $black;
+  opacity: 1;
+}
+
 
 .registration {
   text-align: center;

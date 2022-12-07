@@ -199,3 +199,16 @@
   font-family: "Nunito";
   font-size: 20px;
 }
+
+.forward {
+  display: flex;
+  color: black;
+  background-color: $yellow;
+  border-radius: 15px;
+  padding: 6px;
+}
+
+.forward:hover {
+  background: #a18426;
+  transition: .5s;
+}

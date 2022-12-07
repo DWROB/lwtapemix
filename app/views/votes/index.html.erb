@@ -1,5 +1,5 @@
 <div>
-<h1 class="centered mt-3">Making Playlist</h1>
+<h1 class="centered mt-3">Making Your Tape</h1>
 
 <%= render "shared/casset" %>
 
@@ -19,7 +19,7 @@
   <input type="text" value="<%= playlist_url(@playlist) %>" class="mx-3" style="width: 90%">
 </div>
 <div class="centered" style="margin-bottom:30px; margin-top:30px;";>
-  <%= link_to "confirm the playlist", playlist_send_to_spotify_path(@playlist),
+  <%= link_to "Confirm Your Tape", playlist_send_to_spotify_path(@playlist),
             class: "yellow-button", data: {
             turbo_method: :post,
             action: "playlists#send_to_spotify"

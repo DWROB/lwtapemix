@@ -1,0 +1,24 @@
+.sorry-flex {
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  margin-left: 40px;
+  margin-right: 40px;
+}
+
+#sign-up-text {
+  opacity: 0.8;
+  color: $yellow;
+}
+
+.sign-up-link {
+  opacity: 1;
+  color: white;
+  text-decoration-line: underline;
+}
+
+.moving-cassette {
+  margin-top: 20px;
+  margin-bottom: 60px;
+}
+

@@ -6,50 +6,56 @@ class PlaylistsController < ApplicationController
     if params[:error]
       puts "LOGIN ERROR", params
     elsif params[:code]
+
       # delete the user's existing playlists to avoid doubling up
 
       @user = User.find(current_user.id)
-      @user_playlists = Playlist.where(user_id: @user.id)
-      unless @user_playlists.empty?
-        clear_playlist_and_song_data
+      unless @user.auth_key == params[:code]
+        @user.auth_key = params[:code]
+        @user_playlists = Playlist.where(user_id: @user.id)
+
+        unless @user_playlists.empty?
+          clear_playlist_and_song_data
+        end
+
+        # auth code received - combine client_id and client_secret ...
+        # and encode to request token
+        auth_code = ENV['CLIENT_ID'] + ":" + ENV['CLIENT_SECRET']
+        form = {
+          grant_type: "authorization_code",
+          code: params[:code],
+          redirect_uri: "http://localhost:3000/playlists/"
+        }
+        headers = {
+          Authorization: 'Basic ' + Base64.strict_encode64(auth_code),
+          "Content-Type": 'application/x-www-form-urlencoded'
+        }
+
+        # post to spotify with all headers and form to receive token
+        auth_response = RestClient.post('https://accounts.spotify.com/api/token', form, headers)
+        auth_params = JSON.parse(auth_response.body)
+
+        # auth_params 200 then return the access token from auth_params
+
+        header = {
+          Authorization: "Bearer #{auth_params["access_token"]}"
+        }
+        user_response = RestClient.get("https://api.spotify.com/v1/me", header)
+        user_params = JSON.parse(user_response.body)
+
+        # user_params have access_token, user_spotify_id and the refresh_token.
+        # update the user.
+        @user.update(
+          name: user_params["display_name"],
+          spotify_name: user_params["id"],
+          spotify_access_token: auth_params["access_token"],
+          refresh_token: auth_params["refresh_token"]
+        )
+        fetch_user_playlists
       end
+      @user.auth_key = params[:code]
 
-      # auth code received - combine client_id and client_secret ...
-      # and encode to request token
-      auth_code = ENV['CLIENT_ID'] + ":" + ENV['CLIENT_SECRET']
-      form = {
-        grant_type: "authorization_code",
-        code: params[:code],
-        redirect_uri: "http://localhost:3000/playlists/"
-      }
-      headers = {
-        Authorization: 'Basic ' + Base64.strict_encode64(auth_code),
-        "Content-Type": 'application/x-www-form-urlencoded'
-      }
-
-      # post to spotify with all headers and form to receive token
-      auth_response = RestClient.post('https://accounts.spotify.com/api/token', form, headers)
-      auth_params = JSON.parse(auth_response.body)
-
-      # auth_params 200 then return the access token from auth_params
-
-      header = {
-        Authorization: "Bearer #{auth_params["access_token"]}"
-      }
-      user_response = RestClient.get("https://api.spotify.com/v1/me", header)
-      user_params = JSON.parse(user_response.body)
-
-      # user_params have access_token, user_spotify_id and the refresh_token.
-      # update the user.
-      @user.update(
-        name: user_params["display_name"],
-        spotify_name: user_params["id"],
-        spotify_access_token: auth_params["access_token"],
-        refresh_token: auth_params["refresh_token"]
-      )
-      fetch_user_playlists
-
-      @playlists = policy_scope(Playlist.where("user_id = #{current_user.id}"))
+      @playlists = policy_scope(Playlist.where("user_id = #{@user.id}"))
     else
       @playlists = policy_scope(Playlist.where("user_id = #{current_user.id}"))
       @user = User.find(current_user.id)

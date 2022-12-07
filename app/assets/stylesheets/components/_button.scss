@@ -111,6 +111,15 @@
   font-weight: bold;
 }
 
+.yellow-button-small-playlist:hover {
+  background: #a18426;
+  color: $black;
+  transition: .5s;
+  border-radius: 11px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
 .done-voting-button {
   background: $yellow;
   opacity: 0.8;

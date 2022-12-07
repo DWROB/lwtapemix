@@ -251,18 +251,13 @@ class PlaylistsController < ApplicationController
 
     create_playlist_params = JSON.parse(create_playlist_response)
 
-    @playlist.spotify_playlist_id = create_playlist_params["href"]
+    @playlist.spotify_playlist_id = create_playlist_params["id"]
     @playlist.active = false
     @playlist.save
     header = post_set_header
-    url = @playlist.spotify_playlist_id
 
     body = prepare_tracks_for_api
-    begin
-      RestClient.post "#{url}tracks", body.to_json, header
-    rescue RestClient::Exception => e
-      puts e.http_body
-    end
+    RestClient.post "https://api.spotify.com/v1/playlists/#{@playlist.spotify_playlist_id}/tracks", body.to_json, header
 
     # RestClient.post url, body.to_json, header
     skip_authorization
@@ -278,10 +273,9 @@ class PlaylistsController < ApplicationController
 
   def post_set_header
     {
-      Authorization: "Bearer #{current_user.spotify_access_token}",
-      'Content-Type': "application/json"
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: "Bearer #{current_user.spotify_access_token}"
     }
   end
-
-
 end

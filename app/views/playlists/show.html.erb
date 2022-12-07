@@ -24,7 +24,7 @@
               <i class="fa-regular fa-thumbs-down"></i>
             <% end %>
             <div class="done-button">
-              <%= link_to "I'm Bored of Voting", done_path, :class=> "yellow-button-small" %> 
+              <%= link_to "I'm Done Voting", done_path, :class=> "done-voting-button" %> 
             </div>
             <%= link_to playlist_upvote_path(@playlist, song_id: song.id),
                         data: {

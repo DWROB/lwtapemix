@@ -57,8 +57,8 @@ button {
 
 .fa-thumbs-up {
   color: green;
-  font-size: 50px;
-  opacity: 0.5;
+  font-size: 60px;
+  opacity: 0.7;
 }
 
 .fa-thumbs-up:hover {
@@ -68,8 +68,8 @@ button {
 
 .fa-thumbs-down {
   color: red;
-  font-size: 50px;  
-  opacity: 0.5;
+  font-size: 60px;  
+  opacity: 0.7;
 }
 
 .fa-thumbs-down:hover {
@@ -86,9 +86,5 @@ h2 {
 .album-song {
   color: $yellow;
   opacity: 0.5;
-}
-
-.done-button {
-  z-index: 1000;
 }
 

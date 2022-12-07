@@ -1,6 +1,12 @@
 .fa-trash {
 color: $red;
 font-size: 35px;
+opacity: 0.4;
+}
+
+.fa-trash:hover {
+  opacity: 1;
+  color: $red;
 }
 
 

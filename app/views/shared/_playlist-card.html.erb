@@ -5,8 +5,8 @@
         <div class="card-img" style="background-image: url(https://play-lh.googleusercontent.com/j-MLXrudwclqIlOZxRe90kOGS744GY0spVZF2OsEnJeMMxqa6Qxu1SwLiCmjQp8gIA)">
           <%= image_tag playlist.playlist_images, class: "card-img", style: "background-image" %>
         </div>
-          <h2 class="yellow card-text-center-small"> <%= playlist.name %></h2>
-          <p class="yellow p-card-text-center-small"><%= @user.name.capitalize ? playlist.owner : "spotify not connected" %></p>
+          <h2 class="yellow card-text-center-small"> <%= playlist.name.capitalize %></h2>
+          <p class="yellow p-card-text-center-small"><%= @user.name.capitalize ? playlist.owner.capitalize : "spotify not connected" %></p>
           <div class="destroy">
                       <%= link_to "",playlist_path(playlist), data: {turbo_method: :delete}, class: "fa-solid fa-trash"%>
 

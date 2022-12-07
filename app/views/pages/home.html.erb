@@ -7,7 +7,7 @@
 
 
   <div class="flex-item">
-    <p style="font-weight: 400;margin-bottom:60px; font-size: 25px;"> Let's make a tape </p>
+    <p style="font-weight: 400;margin-bottom:60px; font-size: 30px;"> Let's make a tape </p>
   </div>
 
   <% if !user_signed_in? %>
@@ -16,12 +16,12 @@
       :class => "yellow-button-small", :method => :get %>
     </div>
     <div class="flex-item">
-      <p class="yellow-btn-link" style="margin-top: 25px"><%= link_to "Register to make your tape!", new_user_registration_path, class:"yellow-btn-link" %></p>
+      <p class="yellow-btn-link" style="margin-top: 25px;"><%= link_to "Register to make your tape!", new_user_registration_path, class:"yellow-btn-link" %></p>
     </div>
   <% else %>
     <div class="flexbox spotify">
       <i class="fa-brands fa-spotify connect">
-        <%= link_to "Connect your spotify", @authorize_spotify_link, a_target: "blank", class: 'white-spotify-home' %>
+        <%= link_to "Connect to Spotify", @authorize_spotify_link, a_target: "blank", class: 'white-spotify-home' %>
       </i>
     </div>
   <% end %>

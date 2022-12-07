@@ -3,4 +3,6 @@ class Playlist < ApplicationRecord
   has_many :songs, dependent: :destroy
   has_many :votes, dependent: :destroy
 
+  validates :spotify_playlist_id, presence: true
+  validates :name, presence: true
 end

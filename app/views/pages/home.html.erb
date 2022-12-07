@@ -1,25 +1,28 @@
-<div class="flex-item-img" style="background-image: url('<%= image_path "home_picture.png" %>')"></div>
-
-<div class="flex-item">
-  <h1 class="tapemix"> TapeMix </h1>
-</div>
-
-<div class="flex-item">
-  <p style="font-weight: 400;"> Let's make a tape </p>
-</div>
-
-<% if !user_signed_in? %>
+<div class="page-container align-items-center d-flex flex-column justify-content-center">
   <div class="flex-item">
-    <%= button_to "Sign In", new_user_session_path, :id => "open-contacts-dialog-btn",
-    :class => "yellow-button-small", :method => :get %>
+    <h1 class="tapemix big"> TapeMix </h1>
   </div>
+
+  <div class="flex-item-img" style="background-image: url('<%= image_path "home_picture.png" %>');margin-bottom: 60px;"></div>
+
+
   <div class="flex-item">
-    <p class="yellow-btn-link" style="margin-top: 25px"><%= link_to "Register to make your tape!", new_user_registration_path, class:"yellow-btn-link" %></p>
+    <p style="font-weight: 400;margin-bottom:60px; font-size: 25px;"> Let's make a tape </p>
   </div>
-<% else %>
-  <div class="flexbox">
-    <i class="fa-brands fa-spotify">
-      <%= link_to "Connect your spotify", @authorize_spotify_link, a_target: "blank", class: 'white-spotify' %>
-    </i>
-  </div>
-<% end %>
+
+  <% if !user_signed_in? %>
+    <div class="flex-item">
+      <%= button_to "Sign In", new_user_session_path, :id => "open-contacts-dialog-btn",
+      :class => "yellow-button-small", :method => :get %>
+    </div>
+    <div class="flex-item">
+      <p class="yellow-btn-link" style="margin-top: 25px"><%= link_to "Register to make your tape!", new_user_registration_path, class:"yellow-btn-link" %></p>
+    </div>
+  <% else %>
+    <div class="flexbox spotify">
+      <i class="fa-brands fa-spotify">
+        <%= link_to "Connect your spotify", @authorize_spotify_link, a_target: "blank", class: 'white-spotify' %>
+      </i>
+    </div>
+  <% end %>
+</div>

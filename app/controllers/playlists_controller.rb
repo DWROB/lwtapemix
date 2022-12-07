@@ -120,11 +120,13 @@ class PlaylistsController < ApplicationController
 
   def send_to_spotify
     @playlist = Playlist.find(params[:playlist_id])
-    @playlist.votes.each do |vote|
-      unless vote.votes.positive?
-        Song.delete(vote.song_id)
+
+    @playlist.songs.each do |song|
+      if song.votes.empty? || song.votes[0].votes.negative?
+        Song.delete(song.id)
       end
     end
+
     @user = User.find(@playlist.user_id)
     post_to_spotify
   end

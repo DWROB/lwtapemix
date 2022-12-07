@@ -23,7 +23,7 @@ class PlaylistsController < ApplicationController
         form = {
           grant_type: "authorization_code",
           code: params[:code],
-          redirect_uri: "http://lwtapemix.herokuapp.com/playlists/"
+          redirect_uri: "http://localhost:3000/playlists/"
         }
         headers = {
           Authorization: 'Basic ' + Base64.strict_encode64(auth_code),
@@ -59,7 +59,7 @@ class PlaylistsController < ApplicationController
       query_params = {
         client_id: ENV['CLIENT_ID'],
         response_type: "code",
-        redirect_uri: "http://lwtapemix.herokuapp.com/playlists/",
+        redirect_uri: "http://localhost:3000/playlists/",
         scope: "user-library-read ugc-image-upload playlist-read-private playlist-modify-private playlist-modify-public user-read-private user-top-read user-follow-read",
         show_dialog: true
       }
@@ -71,7 +71,7 @@ class PlaylistsController < ApplicationController
       query_params = {
         client_id: ENV['CLIENT_ID'],
         response_type: "code",
-        redirect_uri: "http://lwtapemix.herokuapp.com/playlists/",
+        redirect_uri: "http://localhost:3000/playlists/",
         scope: "user-library-read ugc-image-upload playlist-read-private playlist-modify-private playlist-modify-public user-read-private user-top-read user-follow-read",
         show_dialog: true
       }
@@ -251,14 +251,20 @@ class PlaylistsController < ApplicationController
 
     create_playlist_params = JSON.parse(create_playlist_response)
 
-    @playlist.spotify_playlist_id = create_playlist_params["id"]
+    @playlist.spotify_playlist_id = create_playlist_params["href"]
     @playlist.active = false
     @playlist.save
     header = post_set_header
+    url = @playlist.spotify_playlist_id
 
     body = prepare_tracks_for_api
-    RestClient.post "https://api.spotify.com/v1/playlists/#{@playlist.spotify_playlist_id}/tracks", body.to_json, header
-    # if add_items_to_playlist_response[:s]
+    begin
+      RestClient.post "#{url}tracks", body.to_json, header
+    rescue RestClient::Exception => e
+      puts e.http_body
+    end
+
+    # RestClient.post url, body.to_json, header
     skip_authorization
     redirect_to playlists_path
   end

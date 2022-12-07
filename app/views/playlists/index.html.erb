@@ -1,6 +1,6 @@
 <div class="newplaylist">
   <a href="/"> <i class="fa-solid fa-chevron-left"></i></a>
-    <h1 class="yellow" style="text-align:center;font-size:30px";>Name your Playlist</h1>
+    <h1 class="yellow" style="text-align:center;font-size:30px";>Select playlists below</h1>
     <div data-controller="playlist">
       <div class="centered">
         <%= form_with url: playlists_path,
@@ -14,7 +14,7 @@
                             data: {
                               playlist_target: "name"
                             },
-                            style: "width:250px"%>
+                            style: "width:250px", placeholder: "Name your tape"%>
           <%= f.text_field :playlistIds, class: "d-none", data: { playlist_target: "playlistIds" } %>
           <%= f.submit "Create", class: "yellow-button-small-playlist" %>
         <% end %>

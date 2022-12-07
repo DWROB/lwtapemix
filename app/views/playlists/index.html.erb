@@ -1,10 +1,6 @@
-
 <div class="newplaylist">
-<div class="space-between">
-    <a href="/"> <i class="fa-solid fa-chevron-left"></i></a>
-  <a class="forward" href="javascript:history.forward()">Return to tape</a>
-</div>
-    <h1 class="yellow" style="text-align:center;font-size:30px";>Select playlists below</h1>
+  <a href="/"> <i class="fa-solid fa-chevron-left"></i></a>
+    <h1 class="yellow" style="text-align:center;font-size:30px";>Name your Playlist</h1>
     <div data-controller="playlist">
       <div class="centered">
         <%= form_with url: playlists_path,
@@ -18,7 +14,7 @@
                             data: {
                               playlist_target: "name"
                             },
-                            style: "width:250px", placeholder: "Name your tape"%>
+                            style: "width:250px"%>
           <%= f.text_field :playlistIds, class: "d-none", data: { playlist_target: "playlistIds" } %>
           <%= f.submit "Create", class: "yellow-button-small-playlist" %>
         <% end %>

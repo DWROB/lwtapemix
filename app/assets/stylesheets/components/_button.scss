@@ -169,16 +169,18 @@
 }
 
 .forward {
-  background-color: $yellow;
-  color: black;
+  background-color: #242424;
+  color: $yellow;
   margin: 10px;
-  border-radius: 15px;
+  border-radius: 10px;
   padding: 6px;
+  border: 1px solid $yellow;
+
 }
 
 .forward:hover {
-  background: #a18426;
-  color: $black;
+  background: black;
+  color: $yellow;;
   transition: .5s;
   text-decoration: none;
 }
@@ -193,17 +195,4 @@
   color: #FCCF35 !important;
   font-family: "Nunito";
   font-size: 20px;
-}
-
-.forward {
-  display: flex;
-  color: black;
-  background-color: $yellow;
-  border-radius: 15px;
-  padding: 6px;
-}
-
-.forward:hover {
-  background: #a18426;
-  transition: .5s;
 }

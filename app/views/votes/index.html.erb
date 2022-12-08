@@ -39,6 +39,7 @@ const checkVotes = () => {
   fetch(url)
     .then(response => response.json())
     .then((data) => {
+        songVoteBoard.innerHTML = ""
         data.forEach((song) => {
           const voteCard = `<div class="card-product">
             <img src="${song.image}"/>
@@ -51,8 +52,9 @@ const checkVotes = () => {
             </div>
           </div>`
           songVoteBoard.insertAdjacentHTML("beforeend", voteCard)
+          console.log(voteCard)
         })
       })
 };
- setInterval(checkVotes, 6000);
+ setInterval(checkVotes, 1000);
 </script>

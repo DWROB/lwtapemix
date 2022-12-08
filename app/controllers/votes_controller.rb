@@ -3,8 +3,6 @@ class VotesController < ApplicationController
   before_action :authenticate_user!, except: %i[upvote downvote done]
 
   def index
-    # playlist_votes_path
-    # /playlists/:playlist_id/votes (#index)
 
     @playlist = Playlist.find(params[:playlist_id])
 
@@ -21,10 +19,10 @@ class VotesController < ApplicationController
   end
 
   def votes_board
-    @songs_votes = policy_scope(Song.joins(:votes).where("votes.votes > 1").includes(:votes).where(playlist: params[:playlist_id]))
-    # respond_to do |format|
-    #   format.json { render json: JSON.parse(@song_votes.to_json) }
-    # end
+    @songs_votes = policy_scope(Song.joins(:votes).where("votes.votes > 0 and votes.playlist_id = ?", params[:playlist_id]))
+
+    # @votes = policy_scope(Vote.where(playlist: params[:playlist_id]))
+
     results = []
     @songs_votes.each do |song|
     results << {

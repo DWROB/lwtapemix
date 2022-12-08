@@ -80,7 +80,6 @@ group :test do
 end
 
 # gems required to use the rspotify gem
-gem 'active_model_serializers'
 gem 'rspotify'
 
 

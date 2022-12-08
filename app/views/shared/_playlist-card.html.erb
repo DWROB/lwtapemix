@@ -6,11 +6,12 @@
           <%= image_tag playlist.playlist_images, class: "card-img", style: "background-image" %>
         </div>
           <h2 class="yellow card-text-center-small"> <%= playlist.name.capitalize %></h2>
-          <p class="yellow p-card-text-center-small"><%= @user.name.capitalize ? playlist.owner.capitalize : "spotify not connected" %></p>
-          <div class="destroy">
-                      <%= link_to "",playlist_path(playlist), data: {turbo_method: :delete}, class: "fa-solid fa-trash"%>
 
-          </div>
+
+      <div class="card-box-info">
+        <p class="yellow p-card-text-center-small"><%= @user.name.capitalize ? playlist.owner.capitalize : "spotify not connected" %> </p>
+        <%= link_to "",playlist_path(playlist), data: {turbo_method: :delete}, class: "fa-solid fa-trash left"%>
+      </div>
       </div>
     </div>
   <% end %>

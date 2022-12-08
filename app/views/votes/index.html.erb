@@ -16,7 +16,7 @@
 <h1 class="playlist" id="playlist-name"><%= @playlist.name %></h1>
 <div class="text-center">
   <h2>Share this link to vote</h2>
-  <p style="width: 90%; color: #FCCF35; margin:auto; text-decoration: underline;"><%=("http://demo.tapemix.fun/playlists/#{(@playlist.id)}/welcome")%></p>
+  <p style="width: 90%; color: #FCCF35; margin:auto; text-decoration: underline;"><%=("http://localhost:3000/playlists/#{(@playlist.id)}/welcome")%></p>
 </div>
 <div class="centered" style="margin-bottom:30px; margin-top:30px;";>
   <%= link_to "Confirm Your Tape", playlist_send_to_spotify_path(@playlist),

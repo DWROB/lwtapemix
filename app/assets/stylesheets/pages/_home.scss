@@ -24,7 +24,7 @@ p {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  margin-top: 30px;
+  margin-top: 10px;
   height: 150px;
   width: 350px;
   margin-bottom: 10px;
@@ -32,6 +32,10 @@ p {
 .flex-item{
   display:flex;
   justify-content:center;
+  font-size: 15px;
+  font-family: "Nunito";
+  display: flex;
+  justify-content: center;
 }
 
 .page-container {
@@ -44,4 +48,41 @@ p {
 
 .big {
   font-size: 70px;
+  margin-top: 20px;
+}
+
+.instruction-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.first-order {
+  font-size: 14px;
+  color: $yellow;
+  font-family: "Nunito";
+  opacity: 0.8;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.second-order {
+  font-size: 14px;
+  color: $yellow;
+  font-family: "Nunito";
+  opacity: 0.8;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.third-order {
+  font-size: 14px;
+  color: $yellow;
+  font-family: "Nunito";
+  opacity: 0.8;
+  margin-left: 10px;
+  margin-right: 10px;
 }

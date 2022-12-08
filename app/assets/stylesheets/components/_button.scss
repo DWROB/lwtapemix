@@ -64,6 +64,29 @@
   text-decoration: none;
 }
 
+.yellow-button-sign-in {
+  color: $black;
+  padding: 10px 32px;
+  border-radius: 11px;
+  font-weight: bold;
+  background: $yellow;
+  font-family: "Nunito";
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.yellow-button-sign-in:hover {
+  background: #a18426;
+  color: $black;
+  transition: .5s;
+  padding: 10px 32px;
+  border-radius: 11px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
 .register-button {
   color: $yellow;
   font-family: "Nunito";

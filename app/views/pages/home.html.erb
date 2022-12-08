@@ -3,17 +3,24 @@
     <h1 class="tapemix big"> TapeMix </h1>
   </div>
 
-  <div class="flex-item-img" style="background-image: url('<%= image_path "home_picture.png" %>');margin-bottom: 60px;"></div>
+  <div class="flex-item-img" style="background-image: url('<%= image_path "home_picture.png" %>');margin-bottom: 20px;"></div>
 
 
   <div class="flex-item">
-    <p style="font-weight: 400;margin-bottom:60px; font-size: 30px;"> Let's make a tape </p>
+    <h6 style="font-weight: 400;margin-bottom:20px; font-size: 30px;"> Let's make a tape </>
+  </div>
+  <div class="instruction-list">
+    <ol>
+      <li> Sign up and connect your spotify.</li>
+      <li style="margin: 10px"> Choose the playlists you'd like in your new tape, then name your tape. </li>
+      <li style="margin: 10px"> Share your mix with your friends and let the voting commence! </li>
+    </ol>
   </div>
 
   <% if !user_signed_in? %>
     <div class="flex-item">
       <%= button_to "Sign In", new_user_session_path, :id => "open-contacts-dialog-btn",
-      :class => "yellow-button-small", :method => :get %>
+      :class => "yellow-button-sign-in", :method => :get %>
     </div>
     <div class="flex-item">
       <p class="yellow-btn-link" style="margin-top: 25px; text-decoration:underline;"><%= link_to "Register to make your tape!", new_user_registration_path, class:"yellow-btn-link-home" %></p>

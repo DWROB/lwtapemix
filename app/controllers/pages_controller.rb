@@ -5,7 +5,7 @@ class PagesController < ApplicationController
     query_params = {
       client_id: ENV['CLIENT_ID'],
       response_type: "code",
-      redirect_uri: "http://lwtapemix.herokuapp.com/playlists/",
+      redirect_uri: "http://demo.tapemix.fun/playlists/",
       scope: "user-library-read ugc-image-upload playlist-read-private playlist-modify-private playlist-modify-public user-read-private user-top-read user-follow-read",
       show_dialog: true
     }

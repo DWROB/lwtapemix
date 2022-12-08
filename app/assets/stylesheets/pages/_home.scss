@@ -52,13 +52,37 @@ p {
 }
 
 .instruction-list {
-  font-size: 12px;
-  color: $yellow;
-  font-family: "Nunito";
   display: flex;
+  flex-direction: column;
   justify-content: center;
   text-align: center;
-  opacity: 0.6;
-  margin-right: 27.5px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
 
+.first-order {
+  font-size: 14px;
+  color: $yellow;
+  font-family: "Nunito";
+  opacity: 0.8;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.second-order {
+  font-size: 14px;
+  color: $yellow;
+  font-family: "Nunito";
+  opacity: 0.8;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.third-order {
+  font-size: 14px;
+  color: $yellow;
+  font-family: "Nunito";
+  opacity: 0.8;
+  margin-left: 10px;
+  margin-right: 10px;
 }

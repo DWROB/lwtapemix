@@ -8,8 +8,8 @@
 .flex-container {
   display: flex;
   flex-direction: column;
-  margin-top: 5px;
   padding-top: 10px;
+  border-radius: 10px;
 }
 
 .card-img {
@@ -30,4 +30,15 @@
 
 .card-box {
   background-color: $dark-gray;
+  border-radius: 8px;
+}
+
+.inline {
+  display: inline-block;
+}
+
+.card-box-info {
+  display: flex;
+    justify-content: space-around;
+    min-width: 15vh;
 }

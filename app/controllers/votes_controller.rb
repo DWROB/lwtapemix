@@ -3,12 +3,9 @@ class VotesController < ApplicationController
   before_action :authenticate_user!, except: %i[upvote downvote done]
 
   def index
-    # playlist_votes_path
-    # /playlists/:playlist_id/votes (#index)
 
     @playlist = Playlist.find(params[:playlist_id])
-    @songs_votes = Song.joins(:votes).where("votes.votes > 1").includes(:votes).where(playlist: @playlist)
-    authorize @songs_votes
+
     skip_policy_scope
     authorize @playlist
     @qr_code = RQRCode::QRCode.new("http://localhost:3000/playlists/#{@playlist.id}/welcome")
@@ -19,6 +16,24 @@ class VotesController < ApplicationController
       standalone: true,
       module_size: 6
     )
+  end
+
+  def votes_board
+    @songs_votes = policy_scope(Song.joins(:votes).where("votes.votes > 0 and votes.playlist_id = ?", params[:playlist_id]))
+
+    # @votes = policy_scope(Vote.where(playlist: params[:playlist_id]))
+
+    results = []
+    @songs_votes.each do |song|
+    results << {
+      "id": song.id,
+      "name": song.name,
+      "artist": song.artist,
+      "image": song.image,
+      "votes": song.votes.first.votes
+    }
+    end
+    render json: results
   end
 
   def upvote

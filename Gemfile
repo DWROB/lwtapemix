@@ -14,6 +14,7 @@ gem "pg", "~> 1.1"
 
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", "~> 5.0"
+gem 'rack-cors'
 
 # Bundle and transpile JavaScript [https://github.com/rails/jsbundling-rails]
 gem "jsbundling-rails"
@@ -79,10 +80,8 @@ group :test do
 end
 
 # gems required to use the rspotify gem
-gem 'active_model_serializers'
 gem 'rspotify'
 
 
 # qr code gem
 gem 'rqrcode'
-

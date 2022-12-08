@@ -13,7 +13,7 @@
   </div>
 </div>
 
-<h1 class="playlist"><%= @playlist.name %></h1>
+<h1 class="playlist" id="playlist-name"><%= @playlist.name %></h1>
 <div class="text-center">
   <h2>Share this link to vote</h2>
   <p style="width: 90%; color: #FCCF35; margin:auto; text-decoration: underline;"><%=("http://demo.tapemix.fun/playlists/#{(@playlist.id)}/welcome")%></p>
@@ -25,15 +25,34 @@
             action: "playlists#send_to_spotify"
   } %>
 </div>
-<% @songs_votes.each_with_index do |song, i| %>
-  <div class="card-product">
-    <img src= "<%= song.image %>"/>
-      <div class="card-product-infos">
-        <h2><%= song.name %></h2>
-        <p><%= song.artist %></p>
-        <p>Votes :
-          <%= @songs_votes[i].votes[0]&.votes - 1 %>
-        </p>
-      </div>
-  </div>
-<% end %>
+<div id="vote-board">
+
+</div>
+
+<div class="invisible d-none"><%= @playlist.id %></div>
+<script>
+const checkVotes = () => {
+  const playlistId = document.querySelector('.invisible').textContent;
+  const songVoteBoard = document.querySelector("#vote-board");
+  const url = `http://localhost:3000/playlists/${playlistId}/votes_board/`;
+
+  fetch(url)
+    .then(response => response.json())
+    .then((data) => {
+        data.forEach((song) => {
+          const voteCard = `<div class="card-product">
+            <img src="${song.image}"/>
+            <div class="card-product-infos">
+            <h2>${song.name}</h2>
+            <p>${song.artist}</p>
+            <p>Votes :
+            ${song.votes}
+            </p>
+            </div>
+          </div>`
+          songVoteBoard.insertAdjacentHTML("beforeend", voteCard)
+        })
+      })
+};
+ setInterval(checkVotes, 6000);
+</script>

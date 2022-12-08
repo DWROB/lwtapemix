@@ -7,8 +7,7 @@ class VotesController < ApplicationController
     # /playlists/:playlist_id/votes (#index)
 
     @playlist = Playlist.find(params[:playlist_id])
-    @songs_votes = Song.joins(:votes).where("votes.votes > 1").includes(:votes).where(playlist: @playlist)
-    authorize @songs_votes
+
     skip_policy_scope
     authorize @playlist
     @qr_code = RQRCode::QRCode.new("http://demo.tapemix.fun/playlists/#{@playlist.id}/welcome")
@@ -19,6 +18,24 @@ class VotesController < ApplicationController
       standalone: true,
       module_size: 6
     )
+  end
+
+  def votes_board
+    @songs_votes = policy_scope(Song.joins(:votes).where("votes.votes > 1").includes(:votes).where(playlist: params[:playlist_id]))
+    # respond_to do |format|
+    #   format.json { render json: JSON.parse(@song_votes.to_json) }
+    # end
+    results = []
+    @songs_votes.each do |song|
+    results << {
+      "id": song.id,
+      "name": song.name,
+      "artist": song.artist,
+      "image": song.image,
+      "votes": song.votes.first.votes
+    }
+    end
+    render json: results
   end
 
   def upvote

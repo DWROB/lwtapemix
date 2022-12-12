@@ -5,4 +5,4 @@ Rails app generated with [lewagon/rails-templates](https://github.com/lewagon/ra
 
 ## Make collaborative Spotify playlists with your friends easily
 
-Using the skills we've learned on the Le Wagon Web Dev Bootcamp, we're going to try to create an app that allows the creation of a collaborative playlist on spotify.
+Using the skills we've learned on the Le Wagon Web Dev Bootcamp, we created a Rails app that provides a simple interface for creating a new playlist with your friends.

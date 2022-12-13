@@ -5,6 +5,8 @@ Rails app generated with [lewagon/rails-templates](https://github.com/lewagon/ra
 
 ## Make collaborative Spotify playlists with your friends easily
 
+The objective of this final project for my Web Development bootcamp with Le Wagon was to make an app that would help a user select a range of playlists from their Spotify account and allow their friends to vote yes or no to any of the songs.  
+
 ### User Flow outline
 
 |Sign up|Authorization|View your Spotify playlists|

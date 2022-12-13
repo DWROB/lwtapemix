@@ -8,9 +8,14 @@ Rails app generated with [lewagon/rails-templates](https://github.com/lewagon/ra
 
 ## Make collaborative Spotify playlists with your friends easily
 
-The objective of this final project for my Web Development bootcamp with Le Wagon was to make an app that would help a user select a range of playlists from their Spotify account and allow their friends to vote yes or no to any of the songs. 
+The objective of this final project for my Web Development bootcamp with Le Wagon was to make an app that would help a user select a range of playlists from their Spotify account and allow their friends to vote yes or no to any of the songs.
 
-## objectives of the project
+## Use case
+All parties need music.  All parties need someone to control the music.  Often the people controlling the music have to deal with other people requesting songs.  The spotify queue is also something that, if someone clumsy comes along, the queue can be obliterated by a careless swipe.  
+
+The aim of TapeMix is that the user, who controls the music, can select one or more of their playlists - say, "2010' alterantive pop" and "Indie rock classics from 2011" - and combine them into one playlist.  They can then send this combined playlist to everyone at the party, allowing to vote 'yes' or 'no' on the song (see fig-1 below).  Any song with less than 0 votes will not make the mix.  
+
+## Objectives of the project
 
 To consider designing any kind of music playlist app without integrating the main music streaming services would be foolish endeavour.  After researching Spotify's documentation about their API and the endpoints available, I felt it would be possible to utilise the API in order to build this app.  
 
@@ -26,5 +31,5 @@ I initially planned to use an existing gem "rspotify" to handle the OAuth proced
 |Make a selection|Keep up to date with voting|Playlist in Spotify|
 |---|---|---|
 |<img alt="Voters can access the screen without logging in and vote quickly and easily" src="https://user-images.githubusercontent.com/89933924/207326066-bddd689b-00ea-41bb-8ac0-d63f2ec25407.png" height="400" width="auto"/>|<img alt="the user can observe the progress of voting through an Js AJAX logic using JSON response" src="https://user-images.githubusercontent.com/89933924/207326182-63ababdf-907f-416e-9cf7-816c74673b7f.png" height="400" width="auto"/>|<img alt="After confirming the tape, the new playlist is made in Spotify ready to play" src="https://user-images.githubusercontent.com/89933924/207326493-b323950f-aa97-4bd9-b61c-16eb1cbb6c82.png" height="400" width="auto"/>|
-|Voters can vote on the songs via a Tinder-style interface|User can observe progress of the voting; and can confirm anytime they want|After confirmation, the tape is immediately sent to Spotify as a playlist, ready to play|
+|fig - 1: Voters can vote on the songs via a Tinder-style interface|User can observe progress of the voting; and can confirm anytime they want|After confirmation, the tape is immediately sent to Spotify as a playlist, ready to play|
 

@@ -82,6 +82,9 @@ end
 # gems required to use the rspotify gem
 gem 'rspotify'
 
-
 # qr code gem
 gem 'rqrcode'
+
+# sidekiq gem to run background jobs
+gem "sidekiq"
+gem "sidekiq-failures", "~> 1.0"

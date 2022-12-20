@@ -1,6 +1,7 @@
 class PlaylistsController < ApplicationController
   before_action :set_playlist, only: %i[show edit destroy]
   before_action :authenticate_user!, except: %i[show welcome tape_closed]
+  before_create :access_token_expired
 
   def index
     @user = User.find(current_user.id)
@@ -27,7 +28,7 @@ class PlaylistsController < ApplicationController
         }
         headers = {
           Authorization: 'Basic ' + Base64.strict_encode64(auth_code),
-          "Content-Type": 'application/x-www-form-urlencoded'
+          'Content-Type': 'application/x-www-form-urlencoded'
         }
 
         # post to spotify with all headers and form to receive token
@@ -279,5 +280,9 @@ class PlaylistsController < ApplicationController
       "Content-Type": "application/json",
       Authorization: "Bearer #{current_user.spotify_access_token}"
     }
+  end
+
+  def access_token_expired
+    RefreshJob(@user).perform_now if (Time.now - @user.updated_at) > 3300
   end
 end

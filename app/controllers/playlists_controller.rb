@@ -132,7 +132,7 @@ class PlaylistsController < ApplicationController
 
     @user = User.find(@playlist.user_id)
     post_to_spotify
-    ClearDbJob.set(wait: 1.minute).perform_later(@playlist)
+    ClearDbJob.set(wait: 90.minute).perform_later(@playlist)
     redirect_to playlists_path
   end
 

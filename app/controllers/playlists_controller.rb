@@ -132,6 +132,8 @@ class PlaylistsController < ApplicationController
 
     @user = User.find(@playlist.user_id)
     post_to_spotify
+    ClearDbJob.set(wait: 1.minute).perform_later(@playlist)
+    redirect_to playlists_path
   end
 
   def destroy
@@ -264,9 +266,7 @@ class PlaylistsController < ApplicationController
     body = prepare_tracks_for_api
     RestClient.post "https://api.spotify.com/v1/playlists/#{@playlist.spotify_playlist_id}/tracks", body.to_json, header
 
-    # RestClient.post url, body.to_json, header
     skip_authorization
-    redirect_to playlists_path
   end
 
   def prepare_tracks_for_api
@@ -288,4 +288,11 @@ class PlaylistsController < ApplicationController
     @user = User.find(current_user.id)
     RefreshJob.perform_later(@user) if (Time.now - @user.updated_at) > 3400
   end
+
+  # def clear_db_job
+  #   user = User.find(current_user.id)
+  #   @playlist = Playlist.where(user_id: user.id)
+  #   raise
+  #   ClearDbJob.set(wait: 1.minute).perform_later(@playlist.last)
+  # end
 end

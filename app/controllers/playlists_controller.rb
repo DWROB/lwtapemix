@@ -1,7 +1,7 @@
 class PlaylistsController < ApplicationController
   before_action :set_playlist, only: %i[show edit destroy]
   before_action :authenticate_user!, except: %i[show welcome tape_closed]
-  before_create :access_token_expired
+  before_action :token_valid, only: %i[create]
 
   def index
     @user = User.find(current_user.id)
@@ -24,7 +24,7 @@ class PlaylistsController < ApplicationController
         form = {
           grant_type: "authorization_code",
           code: params[:code],
-          redirect_uri: "http://demo.tapemix.fun/playlists/"
+          redirect_uri: "http://localhost:3000/playlists/"
         }
         headers = {
           Authorization: 'Basic ' + Base64.strict_encode64(auth_code),
@@ -51,6 +51,7 @@ class PlaylistsController < ApplicationController
           spotify_access_token: auth_params["access_token"],
           refresh_token: auth_params["refresh_token"]
         )
+        RefreshJob.set(wait: 50.minute).perform_later(@user)
         fetch_user_playlists
       end
       @user.auth_key = params[:code]
@@ -60,8 +61,9 @@ class PlaylistsController < ApplicationController
       query_params = {
         client_id: ENV['CLIENT_ID'],
         response_type: "code",
-        redirect_uri: "http://demo.tapemix.fun/playlists/",
-        scope: "user-library-read ugc-image-upload playlist-read-private playlist-modify-private playlist-modify-public user-read-private user-top-read user-follow-read",
+        redirect_uri: "http://localhost:3000/playlists/",
+        scope: "user-library-read playlist-read-private playlist-modify-private playlist-modify-public
+                user-read-private user-top-read user-follow-read",
         show_dialog: true
       }
 
@@ -72,8 +74,8 @@ class PlaylistsController < ApplicationController
       query_params = {
         client_id: ENV['CLIENT_ID'],
         response_type: "code",
-        redirect_uri: "http://demo.tapemix.fun/playlists/",
-        scope: "user-library-read ugc-image-upload playlist-read-private playlist-modify-private playlist-modify-public user-read-private user-top-read user-follow-read",
+        redirect_uri: "http://localhost:3000/playlists/",
+        scope: "user-library-read playlist-read-private playlist-modify-private playlist-modify-public user-read-private user-top-read user-follow-read",
         show_dialog: true
       }
       @authorize_spotify_link = "https://accounts.spotify.com/authorize?#{query_params.to_query}"
@@ -282,7 +284,8 @@ class PlaylistsController < ApplicationController
     }
   end
 
-  def access_token_expired
-    RefreshJob(@user).perform_now if (Time.now - @user.updated_at) > 3300
+  def token_valid
+    @user = User.find(current_user.id)
+    RefreshJob.perform_later(@user) if (Time.now - @user.updated_at) > 3400
   end
 end

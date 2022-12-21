@@ -4,7 +4,7 @@ class RefreshJob < ApplicationJob
   def perform(user)
     @user = User.find(user.id)
     # Do something later
-    refresh_access_token unless access_token_expired?
+    refresh_access_token
   end
 
   private
@@ -15,7 +15,7 @@ class RefreshJob < ApplicationJob
 
     auth_response = RestClient.post('https://accounts.spotify.com/api/token', body, header)
     auth_params = JSON.parse(auth_response.body)
-    user.update(spotify_access_token: auth_params['access_token'])
+    @user.update(spotify_access_token: auth_params['access_token'])
   end
 
   def set_body

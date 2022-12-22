@@ -24,10 +24,10 @@ class PlaylistsController < ApplicationController
         form = {
           grant_type: "authorization_code",
           code: params[:code],
-          redirect_uri: "http://localhost:3000/playlists/"
+          redirect_uri: "http://demo.tapemix.fun/playlists/"
         }
         headers = {
-          Authorization: 'Basic ' + Base64.strict_encode64(auth_code),
+          Authorization: "Basic #{Base64.strict_encode64(auth_code)}",
           'Content-Type': 'application/x-www-form-urlencoded'
         }
 
@@ -51,6 +51,7 @@ class PlaylistsController < ApplicationController
           spotify_access_token: auth_params["access_token"],
           refresh_token: auth_params["refresh_token"]
         )
+        # refresh the user's access token if it has expired.
         RefreshJob.set(wait: 50.minute).perform_later(@user)
         fetch_user_playlists
       end
@@ -61,7 +62,7 @@ class PlaylistsController < ApplicationController
       query_params = {
         client_id: ENV['CLIENT_ID'],
         response_type: "code",
-        redirect_uri: "http://localhost:3000/playlists/",
+        redirect_uri: "http://demo.tapemix.fun/playlists/",
         scope: "user-library-read playlist-read-private playlist-modify-private playlist-modify-public
                 user-read-private user-top-read user-follow-read",
         show_dialog: true
@@ -74,8 +75,9 @@ class PlaylistsController < ApplicationController
       query_params = {
         client_id: ENV['CLIENT_ID'],
         response_type: "code",
-        redirect_uri: "http://localhost:3000/playlists/",
-        scope: "user-library-read playlist-read-private playlist-modify-private playlist-modify-public user-read-private user-top-read user-follow-read",
+        redirect_uri: "http://demo.tapemix.fun/playlists/",
+        scope: "user-library-read playlist-read-private playlist-modify-private playlist-modify-public user-read-private
+                user-top-read user-follow-read",
         show_dialog: true
       }
       @authorize_spotify_link = "https://accounts.spotify.com/authorize?#{query_params.to_query}"
@@ -132,7 +134,8 @@ class PlaylistsController < ApplicationController
 
     @user = User.find(@playlist.user_id)
     post_to_spotify
-    ClearDbJob.set(wait: 90.minute).perform_later(@playlist)
+    # set background process to clear the playlist and votes after time
+    ClearDbJob.set(wait: 60.minute).perform_later(@playlist)
     redirect_to playlists_path
   end
 
@@ -288,11 +291,4 @@ class PlaylistsController < ApplicationController
     @user = User.find(current_user.id)
     RefreshJob.perform_later(@user) if (Time.now - @user.updated_at) > 3400
   end
-
-  # def clear_db_job
-  #   user = User.find(current_user.id)
-  #   @playlist = Playlist.where(user_id: user.id)
-  #   raise
-  #   ClearDbJob.set(wait: 1.minute).perform_later(@playlist.last)
-  # end
 end

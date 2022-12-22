@@ -1,6 +1,7 @@
 class PlaylistsController < ApplicationController
   before_action :set_playlist, only: %i[show edit destroy]
   before_action :authenticate_user!, except: %i[show welcome tape_closed]
+  before_action :token_valid, only: %i[create]
 
   def index
     @user = User.find(current_user.id)
@@ -26,8 +27,8 @@ class PlaylistsController < ApplicationController
           redirect_uri: "http://demo.tapemix.fun/playlists/"
         }
         headers = {
-          Authorization: 'Basic ' + Base64.strict_encode64(auth_code),
-          "Content-Type": 'application/x-www-form-urlencoded'
+          Authorization: "Basic #{Base64.strict_encode64(auth_code)}",
+          'Content-Type': 'application/x-www-form-urlencoded'
         }
 
         # post to spotify with all headers and form to receive token
@@ -50,6 +51,8 @@ class PlaylistsController < ApplicationController
           spotify_access_token: auth_params["access_token"],
           refresh_token: auth_params["refresh_token"]
         )
+        # refresh the user's access token if it has expired.
+        RefreshJob.set(wait: 50.minute).perform_later(@user)
         fetch_user_playlists
       end
       @user.auth_key = params[:code]
@@ -60,7 +63,8 @@ class PlaylistsController < ApplicationController
         client_id: ENV['CLIENT_ID'],
         response_type: "code",
         redirect_uri: "http://demo.tapemix.fun/playlists/",
-        scope: "user-library-read ugc-image-upload playlist-read-private playlist-modify-private playlist-modify-public user-read-private user-top-read user-follow-read",
+        scope: "user-library-read playlist-read-private playlist-modify-private playlist-modify-public
+                user-read-private user-top-read user-follow-read",
         show_dialog: true
       }
 
@@ -72,7 +76,8 @@ class PlaylistsController < ApplicationController
         client_id: ENV['CLIENT_ID'],
         response_type: "code",
         redirect_uri: "http://demo.tapemix.fun/playlists/",
-        scope: "user-library-read ugc-image-upload playlist-read-private playlist-modify-private playlist-modify-public user-read-private user-top-read user-follow-read",
+        scope: "user-library-read playlist-read-private playlist-modify-private playlist-modify-public user-read-private
+                user-top-read user-follow-read",
         show_dialog: true
       }
       @authorize_spotify_link = "https://accounts.spotify.com/authorize?#{query_params.to_query}"
@@ -129,6 +134,9 @@ class PlaylistsController < ApplicationController
 
     @user = User.find(@playlist.user_id)
     post_to_spotify
+    # set background process to clear the playlist and votes after time
+    ClearDbJob.set(wait: 60.minute).perform_later(@playlist)
+    redirect_to playlists_path
   end
 
   def destroy
@@ -261,9 +269,7 @@ class PlaylistsController < ApplicationController
     body = prepare_tracks_for_api
     RestClient.post "https://api.spotify.com/v1/playlists/#{@playlist.spotify_playlist_id}/tracks", body.to_json, header
 
-    # RestClient.post url, body.to_json, header
     skip_authorization
-    redirect_to playlists_path
   end
 
   def prepare_tracks_for_api
@@ -279,5 +285,10 @@ class PlaylistsController < ApplicationController
       "Content-Type": "application/json",
       Authorization: "Bearer #{current_user.spotify_access_token}"
     }
+  end
+
+  def token_valid
+    @user = User.find(current_user.id)
+    RefreshJob.perform_later(@user) if (Time.now - @user.updated_at) > 3400
   end
 end

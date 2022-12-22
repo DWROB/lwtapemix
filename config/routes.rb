@@ -16,4 +16,10 @@ Rails.application.routes.draw do
     resources :votes, only: [:index]
     get "/welcome", to: 'playlists#welcome'
   end
+
+  # sidekiq web UI, only for admins
+  require 'sidekiq/web'
+  authenticate :user, ->(user) { user.admin? } do
+    mount Sidekiq::Web => '/sidekiq'
+  end
 end

@@ -29,7 +29,7 @@ gem "stimulus-rails"
 gem "jbuilder"
 
 # Use Redis adapter to run Action Cable in production
-# gem "redis", "~> 4.0"
+gem "redis"
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
@@ -82,6 +82,9 @@ end
 # gems required to use the rspotify gem
 gem 'rspotify'
 
-
 # qr code gem
 gem 'rqrcode'
+
+# sidekiq gem to run background jobs
+gem "sidekiq"
+gem "sidekiq-failures", "~> 1.0"

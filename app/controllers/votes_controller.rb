@@ -50,7 +50,6 @@ class VotesController < ApplicationController
     @song_votes.save
   end
 
-
   def downvote
     @playlist = Playlist.find(params[:playlist_id])
     @song = Song.find(params[:song_id])

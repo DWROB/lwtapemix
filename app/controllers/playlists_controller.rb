@@ -122,9 +122,7 @@ class PlaylistsController < ApplicationController
     @playlist = Playlist.find(params[:playlist_id])
 
     @playlist.songs.each do |song|
-      if song.votes.empty? || song.votes[0].votes.negative?
-        Song.delete(song.id)
-      end
+      Song.delete(song.id) if song.votes.empty? || song.votes[0].votes.negative?
     end
 
     @user = User.find(@playlist.user_id)

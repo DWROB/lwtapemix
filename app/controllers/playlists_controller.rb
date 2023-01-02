@@ -1,7 +1,6 @@
 class PlaylistsController < ApplicationController
   before_action :set_playlist, only: %i[show edit destroy]
   before_action :authenticate_user!, except: %i[show welcome tape_closed]
-  before_action :token_valid, only: %i[create]
 
   def index
     @user = User.find(current_user.id)
@@ -14,9 +13,7 @@ class PlaylistsController < ApplicationController
         @user.auth_key = params[:code]
         @user_playlists = Playlist.where(user_id: @user.id)
 
-        unless @user_playlists.empty?
-          clear_playlist_and_song_data
-        end
+        clear_playlist_and_song_data unless @user_playlists.empty?
 
         # auth code received - combine client_id and client_secret ...
         # and encode to request token
@@ -51,8 +48,6 @@ class PlaylistsController < ApplicationController
           spotify_access_token: auth_params["access_token"],
           refresh_token: auth_params["refresh_token"]
         )
-        # refresh the user's access token if it has expired.
-        RefreshJob.set(wait: 50.minute).perform_later(@user)
         fetch_user_playlists
       end
       @user.auth_key = params[:code]
@@ -106,7 +101,7 @@ class PlaylistsController < ApplicationController
       name: params["name"],
       user_id: current_user.id,
       owner: current_user.spotify_name,
-      playlist_images: 'home_picture.png',
+      playlist_images: 'home_picture.png'
     )
     if @new_tape.save!
       @new_tape.update(active: true)
@@ -132,8 +127,6 @@ class PlaylistsController < ApplicationController
 
     @user = User.find(@playlist.user_id)
     post_to_spotify
-    # set background process to clear the playlist and votes after time
-    ClearDbJob.set(wait: 60.minute).perform_later(@playlist)
     redirect_to playlists_path
   end
 
@@ -285,8 +278,4 @@ class PlaylistsController < ApplicationController
     }
   end
 
-  def token_valid
-    @user = User.find(current_user.id)
-    RefreshJob.perform_later(@user) if (Time.now - @user.updated_at) > 3400
-  end
 end

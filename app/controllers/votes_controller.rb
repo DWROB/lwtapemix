@@ -24,13 +24,13 @@ class VotesController < ApplicationController
 
     results = []
     @songs_votes.each do |song|
-    results << {
-      id: song.id,
-      name: song.name,
-      artist: song.artist,
-      image: song.image,
-      votes: song.votes.first.votes
-    }
+      results << {
+        id: song.id,
+        name: song.name,
+        artist: song.artist,
+        image: song.image,
+        votes: song.votes.first.votes
+      }
     end
     render json: results
   end

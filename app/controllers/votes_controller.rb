@@ -3,7 +3,6 @@ class VotesController < ApplicationController
   before_action :authenticate_user!, except: %i[upvote downvote done]
 
   def index
-
     @playlist = Playlist.find(params[:playlist_id])
 
     skip_policy_scope
@@ -26,11 +25,11 @@ class VotesController < ApplicationController
     results = []
     @songs_votes.each do |song|
     results << {
-      "id": song.id,
-      "name": song.name,
-      "artist": song.artist,
-      "image": song.image,
-      "votes": song.votes.first.votes
+      id: song.id,
+      name: song.name,
+      artist: song.artist,
+      image: song.image,
+      votes: song.votes.first.votes
     }
     end
     render json: results
@@ -49,7 +48,6 @@ class VotesController < ApplicationController
     skip_authorization
     @song_votes.save
   end
-
 
   def downvote
     @playlist = Playlist.find(params[:playlist_id])

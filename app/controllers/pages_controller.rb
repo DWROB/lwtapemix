@@ -6,7 +6,8 @@ class PagesController < ApplicationController
       client_id: ENV['CLIENT_ID'],
       response_type: "code",
       redirect_uri: "http://demo.tapemix.fun/playlists/",
-      scope: "user-library-read playlist-read-private playlist-modify-private playlist-modify-public user-read-private user-top-read user-follow-read",
+      scope: "user-library-read playlist-read-private playlist-modify-private playlist-modify-public user-read-private
+      user-top-read user-follow-read",
       show_dialog: true
     }
     @authorize_spotify_link = "https://accounts.spotify.com/authorize?#{query_params.to_query}"
